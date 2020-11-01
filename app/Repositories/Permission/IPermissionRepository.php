@@ -1,7 +1,7 @@
 <?php
-namespace App\Repositories\ApiLog;
+namespace App\Repositories\Permission;
 
-interface IApiLogRepository {
+interface IPermissionRepository {
      /**
      * List all permissions
      * @return array [Permissions]

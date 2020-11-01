@@ -1,13 +1,13 @@
 <?php
-namespace App\Repositories\Permission;
+namespace App\Repositories\ApiLog;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-interface IPermissionRepository {
+interface IApiLogRepository {
     /**
      * List all api logs
-     * @return array [Permissions]
+     * @return array [ApiLog]
      */
     public function list();
 
