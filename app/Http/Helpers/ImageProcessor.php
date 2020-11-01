@@ -90,6 +90,13 @@ class ImageProcessor {
         return Storage::url($saveDirectory.$fileName);
     }
 
+    public function saveBasic() {
+        $fileName = $this->getFileName();
+        $directory = 'public/images/'.$this->moduleFolder.'/';
+        Storage::putFileAs($directory, $this->file, $fileName);
+        return Storage::url($directory.$fileName);
+    }
+
     private function blur($intensity) {
         $this->image->blur($this->blur);
         return $this;

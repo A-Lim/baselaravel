@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 use App\SystemSetting;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\SystemSetting\UpdateRequest;
-use App\Repositories\SystemSetting\SystemSettingRepositoryInterface;
+use App\Repositories\SystemSetting\ISystemSettingRepository;
 
 class SystemSettingController extends ApiController {
 
     private $systemSettingRepository;
 
-    public function __construct(SystemSettingRepositoryInterface $systemSettingRepositoryInterface) {
+    public function __construct(ISystemSettingRepository $iSystemSettingRepository) {
         $this->middleware('auth:api')
             ->except(['allowPublicRegistration']);
-        $this->systemSettingRepository = $systemSettingRepositoryInterface;
+        $this->systemSettingRepository = $iSystemSettingRepository;
     }
 
     public function list(Request $request) {

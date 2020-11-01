@@ -4,7 +4,7 @@ namespace App\Repositories\Auth;
 use Laravel\Passport\Client as OAuthClient;
 use Laravel\Passport\RefreshToken;
 
-class OAuthRepository implements OAuthRepositoryInterface {
+class OAuthRepository implements IOAuthRepository {
     
     /**
      * {@inheritdoc}

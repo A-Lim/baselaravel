@@ -3,7 +3,7 @@ namespace App\Repositories\UserGroup;
 
 use App\UserGroup;
 
-interface UserGroupRepositoryInterface
+interface IUserGroupRepository
 {
     /**
      * Check if code exists

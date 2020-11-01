@@ -12,8 +12,9 @@ use Carbon\Carbon;
 use App\User;
 use App\Http\Requests\Auth\LoginRequest;
 
-use App\Repositories\Auth\OAuthRepositoryInterface;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Auth\IOAuthRepository;
+use App\Repositories\User\IUserRepository;
+use App\Repositories\SystemSetting\ISystemSettingRepository;
 
 class LoginController extends ApiController {
 
@@ -21,14 +22,17 @@ class LoginController extends ApiController {
 
     private $oAuthRepository;
     private $userRepository;
+    private $systemRepository;
 
-    public function __construct(OAuthRepositoryInterface $oAuthRepositoryInterface,
-        UserRepositoryInterface $iUserRepository) {
+    public function __construct(IOAuthRepository $iOAuthRepository,
+        IUserRepository $iUserRepository,
+        ISystemSettingRepository $iSystemSettingRepository) {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth:api')->except(['login', 'refresh']);
 
-        $this->oAuthRepository = $oAuthRepositoryInterface;
+        $this->oAuthRepository = $iOAuthRepository;
         $this->userRepository = $iUserRepository;
+        $this->systemRepository = $iSystemSettingRepository;
     }
 
     public function login(LoginRequest $request) {
@@ -53,7 +57,11 @@ class LoginController extends ApiController {
             }
 
             $tokenResult = $user->createToken('accesstoken');
-            $permissions = $this->userRepository->permissions($user);
+
+            if ($user->status == User::STATUS_INACTIVE)
+                $permissions = $this->systemRepository->findByCode('inactive_permissions')->value;
+            else
+                $permissions = $this->userRepository->permissions($user);
             
             return $this->responseWithLoginData(200, $tokenResult, $user, $permissions);
         }

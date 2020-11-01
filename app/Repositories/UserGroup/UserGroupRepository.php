@@ -5,7 +5,7 @@ use DB;
 use App\UserGroup;
 use Carbon\Carbon;
 
-class UserGroupRepository implements UserGroupRepositoryInterface {
+class UserGroupRepository implements IUserGroupRepository {
     /**
      * {@inheritdoc}
      */
@@ -80,8 +80,7 @@ class UserGroupRepository implements UserGroupRepositoryInterface {
         if ($data['is_admin'] == false && !empty($data['permissions'])) 
             $userGroup->givePermissions($data['permissions']);
 
-        if (!empty($data['userIds']))
-            $userGroup->users()->sync($data['userIds']);
+        $userGroup->users()->sync($data['userIds']);
 
         $userGroup->fill($data);
         $userGroup->save();

@@ -4,7 +4,7 @@ namespace App\Repositories\User;
 use App\User;
 use Illuminate\Http\UploadedFile;
 
-interface UserRepositoryInterface
+interface IUserRepository
 {
 
     /**
@@ -73,4 +73,12 @@ interface UserRepositoryInterface
      * @return array ['normal' => ?, 'placeholder' => ?, 'thumbnail' => ?]
      */
     public function saveAvatar(User $user, UploadedFile $file);
+
+    /**
+     * Save user avatar
+     * 
+     * @param User $user
+     * @return string
+     */
+    public function saveAvatarBasic(User $user, UploadedFile $file);
 }

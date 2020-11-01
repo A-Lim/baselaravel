@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use App\SystemSetting;
 use App\SystemSettingCategory;
 
-class SystemSettingRepository implements SystemSettingRepositoryInterface {
+class SystemSettingRepository implements ISystemSettingRepository {
 
      /**
      * {@inheritdoc}
@@ -51,7 +51,10 @@ class SystemSettingRepository implements SystemSettingRepositoryInterface {
             foreach ($data as $code => $value) {
                 $cases[] = "WHEN `code` = '{$code}' then ?";
                 $codes[] = $code;
-                if ($code === 'default_usergroups')
+
+                // codes where values should be json encoded
+                $json_fields = ['default_usergroups'];
+                if (in_array($code, $json_fields))
                     $params[] = json_encode($value);
                 else
                     $params[] = $value;

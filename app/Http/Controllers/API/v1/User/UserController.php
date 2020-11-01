@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Users\UserCollection;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\User\IUserRepository;
 
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UploadAvatarRequest;
@@ -19,9 +19,9 @@ class UserController extends ApiController {
 
     private $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepositoryInterface) {
+    public function __construct(IUserRepository $iUserRepository) {
         $this->middleware('auth:api');
-        $this->userRepository = $userRepositoryInterface;
+        $this->userRepository = $iUserRepository;
     }
     
     public function list(Request $request) {
@@ -60,15 +60,18 @@ class UserController extends ApiController {
     }
 
     public function uploadProfileAvatar(UploadAvatarRequest $request) {
-        $this->authorize('updateProfile', $authUser);
-        $imagePaths = $this->userRepository->saveAvatar(auth()->user(), $request->file('avatar'));
-        return $this->responseWithMessageAndData(200, $imagePaths, 'Profile avatar updated.');
+        $user = auth()->user();
+        $this->authorize('updateProfile', $user);
+        // $imagePaths = $this->userRepository->saveAvatar(auth()->user(), $request->file('avatar'));
+        $imagePath = $this->userRepository->saveAvatarBasic($user, $request->file('avatar'));
+        return $this->responseWithMessageAndData(200, $imagePath, 'Profile avatar updated.');
     }
 
     public function uploadUserAvatar(UploadAvatarRequest $request, User $user) {
         $this->authorize('update', $user);
-        $imagePaths = $this->userRepository->saveAvatar($user, $request->file('avatar'));
-        return $this->responseWithMessageAndData(200, $imagePaths, 'User avatar updated.');
+        // $imagePaths = $this->userRepository->saveAvatar($user, $request->file('avatar'));
+        $imagePath = $this->userRepository->saveAvatarBasic($user, $request->file('avatar'));
+        return $this->responseWithMessageAndData(200, $imagePath, 'User avatar updated.');
     }
  
     public function details(User $user) {

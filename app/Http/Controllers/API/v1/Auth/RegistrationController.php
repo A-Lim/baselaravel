@@ -11,9 +11,9 @@ use App\Http\Requests\Auth\RegistrationRequest;
 use Carbon\Carbon;
 use App\User;
 use App\SystemSetting;
-use App\Repositories\User\UserRepositoryInterface;
-use App\Repositories\Auth\OAuthRepositoryInterface;
-use App\Repositories\SystemSetting\SystemSettingRepositoryInterface;
+use App\Repositories\User\IUserRepository;
+use App\Repositories\Auth\IOAuthRepository;
+use App\Repositories\SystemSetting\ISystemSettingRepository;
 
 use Illuminate\Http\Request;
 class RegistrationController extends ApiController {
@@ -22,13 +22,13 @@ class RegistrationController extends ApiController {
     private $oAuthRepository;
     private $systemSettingRepository;
 
-    public function __construct(UserRepositoryInterface $userRepositoryInterface,
-        OAuthRepositoryInterface $oAuthRepositoryInterface,
-        SystemSettingRepositoryInterface $iSystemSettingRepository) {
+    public function __construct(IUserRepository $iUserRepository,
+        IOAuthRepository $iOAuthRepository,
+        ISystemSettingRepository $iSystemSettingRepository) {
         $this->middleware('guest');
 
-        $this->userRepository = $userRepositoryInterface;
-        $this->oAuthRepository = $oAuthRepositoryInterface;
+        $this->userRepository = $iUserRepository;
+        $this->oAuthRepository = $iOAuthRepository;
         $this->systemSettingRepository = $iSystemSettingRepository;
     }
 

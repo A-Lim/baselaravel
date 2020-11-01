@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\User\IUserRepository;
 
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
@@ -18,9 +18,9 @@ class ForgotPasswordController extends ApiController {
 
     private $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepositoryInterface) {
+    public function __construct(IUserRepository $iUserRepository) {
         $this->middleware('guest');
-        $this->userRepository = $userRepositoryInterface;
+        $this->userRepository = $iUserRepository;
     }
 
     public function sendResetLink(ForgotPasswordRequest $request) {

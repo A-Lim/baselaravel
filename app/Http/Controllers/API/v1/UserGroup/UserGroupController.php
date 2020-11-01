@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 
 use App\UserGroup;
-use App\Repositories\UserGroup\UserGroupRepositoryInterface;
+use App\Repositories\UserGroup\IUserGroupRepository;
 
 use App\Http\Requests\UserGroup\CreateRequest;
 use App\Http\Requests\UserGroup\UpdateRequest;
@@ -16,9 +16,9 @@ class UserGroupController extends ApiController {
 
     private $userGroupRepository;
 
-    public function __construct(UserGroupRepositoryInterface $userGroupRepositoryInterface) {
+    public function __construct(IUserGroupRepository $iUserGroupRepository) {
         $this->middleware('auth:api');
-        $this->userGroupRepository = $userGroupRepositoryInterface;
+        $this->userGroupRepository = $iUserGroupRepository;
     }
 
     public function exists(CodeExistsRequest $request) {
@@ -48,6 +48,10 @@ class UserGroupController extends ApiController {
 
     public function update(UpdateRequest $request, UserGroup $userGroup) {
         $this->authorize('update', $userGroup);
+
+        if ($userGroup->is_admin)
+            return $this->responseWithMessage(403, 'Unable to edit this usergroup');
+
         $userGroup = $this->userGroupRepository->update($userGroup, $request->all());
         return $this->responseWithMessageAndData(200, $userGroup, 'User group updated.'); 
     }

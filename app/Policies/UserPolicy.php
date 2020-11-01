@@ -26,7 +26,9 @@ class UserPolicy {
      * @return mixed
      */
     public function viewAny(User $user) {
-        return $user->can('users.view');
+        return $user->can('users.view') && 
+            ($user->status == 'active' || 
+            $user->status == 'inactive');
     }
 
     /**
@@ -37,7 +39,9 @@ class UserPolicy {
      * @return mixed
      */
     public function view(User $user, User $model) {
-        return $user->can('users.view');
+        return $user->can('users.view') && 
+            ($user->status == 'active' || 
+            $user->status == 'inactive');;
     }
 
     /**
@@ -47,7 +51,7 @@ class UserPolicy {
      * @return mixed
      */
     public function create(User $user) {
-        return $user->can('users.create');
+        return $user->can('users.create') && $user->status == 'active';
     }
 
     /**
@@ -58,7 +62,7 @@ class UserPolicy {
      * @return mixed
      */
     public function update(User $user, User $model) {
-        return $user->can('users.update');
+        return $user->can('users.update') && $user->status == 'active';
     }
 
     /**
@@ -80,7 +84,7 @@ class UserPolicy {
      * @return mixed
      */
     public function delete(User $user, User $model) {
-        return $user->can('users.delete');
+        return $user->can('users.delete') && $user->status == 'active';
     }
 
     /**

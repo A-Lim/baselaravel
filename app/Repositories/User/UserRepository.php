@@ -11,7 +11,7 @@ use Illuminate\Http\UploadedFile;
 
 use App\Helpers\ImageProcessor;
 
-class UserRepository implements UserRepositoryInterface {
+class UserRepository implements IUserRepository {
 
     public function permissions(User $user) {
         $userGroups = UserGroup::whereHas('users', function($query) use ($user) {
@@ -123,6 +123,16 @@ class UserRepository implements UserRepositoryInterface {
         $imagePaths['thumbnail'] = $image->thumbnail()->save();
 
         $user->avatar = json_encode($imagePaths);
+        $user->save();
+
+        return $user->avatar;
+    }
+
+    public function saveAvatarBasic(User $user, UploadedFile $file) {
+        $image = new ImageProcessor($file, 'users/avatar', $user->id);
+        $imagePath = $image->saveBasic();
+
+        $user->avatar = $imagePath;
         $user->save();
 
         return $user->avatar;

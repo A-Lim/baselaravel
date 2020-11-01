@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\URL;
 
 use Laravel\Passport\HasApiTokens;
 use App\Notifications\CustomResetPassword;
 use App\Notifications\CustomVerifyEmail;
 use App\Http\Traits\HasUserGroups;
 use App\Http\Traits\CustomQuery;
+use App\Casts\Json;
 
 class User extends Authenticatable {
     use Notifiable, HasApiTokens, HasUserGroups, CustomQuery;
@@ -23,12 +25,14 @@ class User extends Authenticatable {
 
     const STATUS_ACTIVE = 'active';
     const STATUS_LOCKED = 'locked';
+    const STATUS_INACTIVE = 'inactive';
     const STATUS_UNVERIFIED = 'unverified';
 
     const STATUSES = [
         self::STATUS_ACTIVE,
         self::STATUS_LOCKED,
         self::STATUS_UNVERIFIED,
+        self::STATUS_INACTIVE,
     ];
 
     /**
@@ -89,17 +93,11 @@ class User extends Authenticatable {
     }
 
     /******** Accessors and Mutators ********/
-
-    /**
-     * Convert json string to an array with all the image paths
-     * for avatar image
-     *
-     * @return array
-     */
+    
     public function getAvatarAttribute($value) {
-        if ($value != null) 
-            return json_decode($value);
-        
-        return [];
+        if ($value != '' || $value != null)
+            return URL::to('/').$value;
+        else 
+            return $value;
     }
 }

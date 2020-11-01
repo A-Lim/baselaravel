@@ -27,8 +27,8 @@ class SystemSetting extends Model {
     public function getValueAttribute()  {
         // system settings codes where values are stored in json
         $json_values = ['default_usergroups'];
-        if ($this->attributes['value'] && in_array($this->code, $json_values))
-            return json_decode($this->attributes['value']);
+        if (in_array($this->code, $json_values))
+            return json_decode($this->attributes['value']) ?? [];
         else 
             return $this->attributes['value'];
     }

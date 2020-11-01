@@ -8,17 +8,17 @@ use Illuminate\Auth\Events\Verified;
 
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Http\Requests\Auth\SendVerificationEmailRequest;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\User\IUserRepository;
 
 class VerificationController extends ApiController {
 
     private $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepositoryInterface) {
+    public function __construct(IUserRepository $iUserRepository) {
         $this->middleware('signed')->only('verifyEmail');
         $this->middleware('throttle:6,1')->only('verifyEmail', 'resend');
 
-        $this->userRepository = $userRepositoryInterface;
+        $this->userRepository = $iUserRepository;
     }
 
     public function verifyEmail(VerifyEmailRequest $request) {

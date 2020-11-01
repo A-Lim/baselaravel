@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Auth;
 
-interface OAuthRepositoryInterface
+interface IOAuthRepository
 {
     /**
      * Retrieve oauth client

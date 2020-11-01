@@ -19,8 +19,6 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'users', 'name' => 'Users', 'description' => 'User module', 'is_active' => '1'],
             ['code' => 'usergroups', 'name' => 'User Groups', 'description' => 'User Groups module', 'is_active' => '1'],
             ['code' => 'systemsettings', 'name' => 'System Settings', 'description' => 'System Settings module', 'is_active' => '1'],
-            ['code' => 'workflows', 'name' => 'Workflows', 'description' => 'Workflows module', 'is_active' => '1'],
-            ['code' => 'orders', 'name' => 'Orders', 'description' => 'Orders module', 'is_active' => '1'],
         ];
 
         $permissions = [

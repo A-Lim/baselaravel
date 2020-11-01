@@ -3,7 +3,7 @@ namespace App\Repositories\SystemSetting;
 
 use App\SystemSetting;
 
-interface SystemSettingRepositoryInterface {
+interface ISystemSettingRepository {
     /**
      * List all systemsettings grouped by systemsettingcategory
      * 
