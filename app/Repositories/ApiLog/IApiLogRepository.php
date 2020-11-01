@@ -19,4 +19,11 @@ interface IApiLogRepository {
      * @return ApiLog
      */
     public function create(Request $request, JsonResponse $response);
+
+    /**
+     * Clear old api logs
+     * @param integer days
+     * @return null
+     */
+    public function clear_old_logs($days);
 }

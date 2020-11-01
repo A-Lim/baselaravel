@@ -3,6 +3,8 @@ namespace App\Repositories\ApiLog;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Carbon\Carbon;
+
 use App\ApiLog;
 
 class ApiLogRepository implements IApiLogRepository {
@@ -29,5 +31,13 @@ class ApiLogRepository implements IApiLogRepository {
             'response_data' => $response->getContent(),
             'status' => $response->status()
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clear_old_logs($days) {
+        ApiLog::where('created_at', '<=', Carbon::now()->subDays($days)->toDateTimeString())
+            ->delete();
     }
 }
