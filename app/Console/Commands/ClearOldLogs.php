@@ -38,8 +38,13 @@ class ClearOldLogs extends Command {
      * @return int
      */
     public function handle() {
+        $output = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $output->writeln('<comment>Deleting old api logs...</comment>');
+
         $days = env('CLEAR_OLD_LOGS_DAYS');
         $this->apiLogRepository->clear_old_logs($days);
+
+        $output->writeln('<info>Operation complete!</info>');
         return 0;
     }
 }

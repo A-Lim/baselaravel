@@ -5,11 +5,13 @@ use DB;
 use App\User;
 use App\UserGroup;
 use App\Permission;
+use App\File;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\UploadedFile;
 
-use App\Helpers\ImageProcessor;
+use App\Http\Helpers\ImageProcessor;
 
 class UserRepository implements IUserRepository {
 
@@ -58,14 +60,16 @@ class UserRepository implements IUserRepository {
      * {@inheritdoc}
      */
     public function find($id) {
-        return User::find($id);
+        return User::with('avatar')
+            ->where('id', $id)
+            ->firstOrFail();
     }
 
     /**
      * {@inheritdoc}
      */
     public function findWithUserGroups($id) {
-        return User::with('usergroups')->where('id', $id)->firstOrFail();
+        return User::with(['usergroups', 'avatar'])->where('id', $id)->firstOrFail();
     }
 
     /**
@@ -93,6 +97,9 @@ class UserRepository implements IUserRepository {
         if (!empty($data['usergroups']))
             $user->userGroups()->sync($data['usergroups']);
 
+        if (!empty($data['date_of_birth']))
+            $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->toDateString();
+
         $user->fill($data);
         $user->save();
         return $user;
@@ -110,32 +117,8 @@ class UserRepository implements IUserRepository {
     /**
      * {@inheritdoc}
      */
-    public function saveAvatar(User $user, UploadedFile $file) {
-        $imagePaths = [];
-
-        $image = new ImageProcessor($file, 'users/avatar', $user->id);
-        $imagePaths['normal'] = $image->fit(400, 400)->save();
-
-        $image = new ImageProcessor($file, 'users/avatar', $user->id);
-        $imagePaths['placeholder'] = $image->placeholder(400, 400)->save();
-
-        $image = new ImageProcessor($file, 'users/avatar', $user->id);
-        $imagePaths['thumbnail'] = $image->thumbnail()->save();
-
-        $user->avatar = json_encode($imagePaths);
-        $user->save();
-
-        return $user->avatar;
-    }
-
-    public function saveAvatarBasic(User $user, UploadedFile $file) {
-        $image = new ImageProcessor($file, 'users/avatar', $user->id);
-        $imagePath = $image->saveBasic();
-
-        $user->avatar = $imagePath;
-        $user->save();
-
-        return $user->avatar;
+    public function saveAvatar(User $user, File $file) {
+        $user->avatar()->save($file);
     }
 
     public function randomizePassword(User $user) {

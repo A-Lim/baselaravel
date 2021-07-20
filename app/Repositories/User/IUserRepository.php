@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\User;
 
+use App\File;
 use App\User;
 use Illuminate\Http\UploadedFile;
 
@@ -70,15 +71,7 @@ interface IUserRepository
      * Save user avatar
      * 
      * @param User $user
-     * @return array ['normal' => ?, 'placeholder' => ?, 'thumbnail' => ?]
+     * @return null
      */
-    public function saveAvatar(User $user, UploadedFile $file);
-
-    /**
-     * Save user avatar
-     * 
-     * @param User $user
-     * @return string
-     */
-    public function saveAvatarBasic(User $user, UploadedFile $file);
+    public function saveAvatar(User $user, File $file);
 }

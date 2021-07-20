@@ -10,18 +10,19 @@ use Laravel\Passport\HasApiTokens;
 use App\Notifications\CustomResetPassword;
 use App\Notifications\CustomVerifyEmail;
 use App\Http\Traits\HasUserGroups;
+use App\Http\Traits\HasDevices;
 use App\Http\Traits\CustomQuery;
 use App\Casts\Json;
 
 class User extends Authenticatable {
-    use Notifiable, HasApiTokens, HasUserGroups, CustomQuery;
+    use Notifiable, HasApiTokens, HasUserGroups, HasDevices, CustomQuery;
 
-    protected $fillable = ['name', 'email', 'password', 'avatar', 'email_verified_at', 'status'];
+    protected $fillable = ['name', 'email', 'gender', 'date_of_birth', 'phone', 'password', 'email_verified_at', 'status'];
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
-    protected $casts = ['email_verified_at' => 'datetime'];
+    protected $casts = [];
 
     // list of properties queryable for datatable
-    public static $queryable = ['name', 'email', 'status'];
+    public static $queryable = ['name', 'email', 'phone', 'date_of_birth', 'gender', 'status'];
 
     const STATUS_ACTIVE = 'active';
     const STATUS_LOCKED = 'locked';
@@ -34,6 +35,10 @@ class User extends Authenticatable {
         self::STATUS_UNVERIFIED,
         self::STATUS_INACTIVE,
     ];
+
+    public function avatar() {
+        return $this->morphOne(File::class, 'fileable');
+    }
 
     /**
      * Model events
@@ -93,11 +98,4 @@ class User extends Authenticatable {
     }
 
     /******** Accessors and Mutators ********/
-    
-    public function getAvatarAttribute($value) {
-        if ($value != '' || $value != null)
-            return URL::to('/').$value;
-        else 
-            return $value;
-    }
 }

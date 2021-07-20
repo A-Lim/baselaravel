@@ -19,7 +19,6 @@ class UpdateRequest extends CustomFormRequest {
         return [
             'name' => 'required|string',
             // 'code' => 'required|string|unique:usergroups,code,{$id},id,deleted_at,NULL',
-            'is_admin' => 'required|boolean'
         ];
     }
 }

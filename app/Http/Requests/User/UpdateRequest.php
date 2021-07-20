@@ -17,6 +17,7 @@ class UpdateRequest extends CustomFormRequest {
     public function rules() {
         return [
             'name' => 'required|string',
+            'gender' => 'required|string',
             'phone' => 'nullable'
         ];
     }

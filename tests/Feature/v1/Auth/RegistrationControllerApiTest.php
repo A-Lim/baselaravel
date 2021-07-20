@@ -4,9 +4,9 @@ namespace Tests\Feature\v1\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\ApiTestCase;
+use Tests\ApiBaseTestCase;
 
-class RegistrationControllerApiTest extends ApiTestCase {
+class RegistrationControllerApiTest extends ApiBaseTestCase {
 
     public function test_able_to_register() {
         $response = $this->withHeaders($this->headers)

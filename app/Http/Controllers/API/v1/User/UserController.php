@@ -10,6 +10,7 @@ use App\User;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Users\UserCollection;
 use App\Repositories\User\IUserRepository;
+use App\Repositories\File\IFileRepository;
 
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\UploadAvatarRequest;
@@ -18,10 +19,13 @@ use App\Http\Requests\User\UpdateProfileRequest;
 class UserController extends ApiController {
 
     private $userRepository;
+    private $fileRepository;
 
-    public function __construct(IUserRepository $iUserRepository) {
+    public function __construct(IUserRepository $iUserRepository,
+        IFileRepository $iFileRepository) {
         $this->middleware('auth:api');
         $this->userRepository = $iUserRepository;
+        $this->fileRepository = $iFileRepository;
     }
     
     public function list(Request $request) {
@@ -32,8 +36,15 @@ class UserController extends ApiController {
         return $this->responseWithData(200, $users);
     }
 
-    public function profile() {
-        return $this->responseWithData(200, auth()->user()); 
+    public function profile(Request $request) {
+        $user = $this->userRepository->find(auth()->id());
+        return $this->responseWithData(200, $user); 
+    }
+
+    public function myPermissions(Request $request) {
+        $user = auth()->user();
+        $permissions = $this->userRepository->permissions($user);
+        return $this->responseWithData(200, $permissions);
     }
 
     public function updateProfile(UpdateProfileRequest $request) {
@@ -41,11 +52,11 @@ class UserController extends ApiController {
         $this->authorize('updateProfile', $authUser);
 
         // prevent user from updating anything else like status, verified_at etc
-        $data = $request->only(['name']);
+        $data = $request->only(['name', 'phone', 'gender', 'date_of_birth']);
 
         // if user has oldPassword filled,
         // user attempting to change password
-        if ($request->has('oldPassword')) {
+        if ($request->has('oldPassword') && $request->oldPassword != null) {
             $credentials = ['email' => $authUser->email, 'password' => $request->oldPassword];
             
             if (!Auth::guard('web')->attempt($credentials)) {
@@ -62,19 +73,33 @@ class UserController extends ApiController {
     public function uploadProfileAvatar(UploadAvatarRequest $request) {
         $user = auth()->user();
         $this->authorize('updateProfile', $user);
-        // $imagePaths = $this->userRepository->saveAvatar(auth()->user(), $request->file('avatar'));
-        $imagePath = $this->userRepository->saveAvatarBasic($user, $request->file('avatar'));
-        return $this->responseWithMessageAndData(200, $imagePath, 'Profile avatar updated.');
+        
+        // delete old avatar
+        if ($user->avatar)
+            $user->avatar->delete();
+
+        // upload new avatar
+        $file = $this->fileRepository->uploadOne('avatars', $request->file('avatar'), User::class, $user->id);
+
+        // save
+        $this->userRepository->saveAvatar(auth()->user(), $file);
+        return $this->responseWithMessageAndData(200, $file, 'Profile avatar updated.');
     }
 
     public function uploadUserAvatar(UploadAvatarRequest $request, User $user) {
         $this->authorize('update', $user);
-        // $imagePaths = $this->userRepository->saveAvatar($user, $request->file('avatar'));
-        $imagePath = $this->userRepository->saveAvatarBasic($user, $request->file('avatar'));
-        return $this->responseWithMessageAndData(200, $imagePath, 'User avatar updated.');
+
+        if ($user->avatar)
+            $user->avatar->delete();
+
+        // upload new avatar
+        $file = $this->fileRepository->uploadOne('avatars', $request->file('avatar'), User::class, $user->id);
+        // save
+        $this->userRepository->saveAvatar($user, $file);
+        return $this->responseWithMessageAndData(200, $file, 'User avatar updated.');
     }
  
-    public function details(User $user) {
+    public function details(Request $request, User $user) {
         $this->authorize('view', $user);
         $user = $this->userRepository->findWithUserGroups($user->id);
         $userResource = new UserResource($user);
@@ -83,8 +108,7 @@ class UserController extends ApiController {
 
     public function update(UpdateRequest $request, User $user) {
         $this->authorize('update', $user);
-        $data = $request->only(['name', 'status', 'usergroups']);
-        $user = $this->userRepository->update($user, $data);
+        $user = $this->userRepository->update($user, $request->all());
         $userResource = new UserResource($user);
         return $this->responseWithMessageAndData(200, $userResource, 'User updated.'); 
     }
@@ -94,5 +118,4 @@ class UserController extends ApiController {
         $random_password = $this->userRepository->randomizePassword($user);
         return $this->responseWithData(200, $random_password);
     }
-
 }

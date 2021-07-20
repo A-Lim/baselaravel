@@ -2,10 +2,10 @@
 
 Route::prefix('v1')->group(function () {
 
-
     /**** Auth ****/
     Route::namespace('API\v1\Auth')->group(function () {
         Route::post('login', 'LoginController@login');
+        Route::post('login/facebook', 'LoginController@facebookLogin');
         Route::post('logout', 'LoginController@logout');
         // Route::post('token/refresh', 'LoginController@refresh');
         Route::post('register', 'RegistrationController@register');
@@ -16,12 +16,18 @@ Route::prefix('v1')->group(function () {
         Route::post('verify-email', 'VerificationController@sendVerificationEmail');
     });
 
+    /**** Device ****/
+    Route::namespace('API\v1\Device')->group(function () {
+        Route::patch('devices', 'DeviceController@update');
+    });
+
     Route::middleware(['apilogger'])->group(function () {
         /**** User ****/
         Route::namespace('API\v1\User')->group(function () {
             Route::get('users', 'UserController@list');
             Route::get('users/{user}', 'UserController@details');
             Route::get('profile', 'UserController@profile');
+            Route::get('my/permissions', 'UserController@myPermissions');
             Route::post('users/{user}/reset-password', 'UserController@resetPassword');
             Route::patch('profile', 'UserController@updateProfile');
             Route::patch('users/{user}', 'UserController@update');
@@ -35,10 +41,23 @@ Route::prefix('v1')->group(function () {
             
             Route::get('usergroups', 'UserGroupController@list');
             Route::get('usergroups/{userGroup}', 'UserGroupController@details');
+            Route::get('usergroups/{userGroup}/users', 'UserGroupController@listUsers');
+            Route::get('usergroups/{userGroup}/notusers', 'UserGroupController@listNotUsers');
+
             Route::post('usergroups', 'UserGroupController@create');
             Route::post('usergroups/exists', 'UserGroupController@exists');
+            Route::post('usergroups/{userGroup}/users', 'UserGroupController@addUsers');
+            
             Route::patch('usergroups/{userGroup}', 'UserGroupController@update');
             Route::delete('usergroups/{userGroup}', 'UserGroupController@delete');
+            Route::delete('usergroups/{userGroup}/users/{user}', 'UserGroupController@removeUser');
+        });
+
+        /**** Files ****/
+        Route::namespace('API\v1\File')->group(function () {
+            Route::get('files', 'FileController@details');
+            Route::post('files/upload', 'FileController@upload');
+            Route::delete('files/{file}', 'FileController@delete');
         });
 
         /**** SystemSettings ****/
@@ -51,6 +70,25 @@ Route::prefix('v1')->group(function () {
         /**** Permissions ****/
         Route::namespace('API\v1\Permission')->group(function () {
             Route::get('permissions', 'PermissionController@list');
+        });
+
+        /**** Notifications ****/
+        Route::namespace('API\v1\Notification')->group(function () {
+            Route::get('notifications', 'NotificationController@list');
+            Route::get('notifications/unreadcount', 'NotificationController@unreadCount');
+            Route::post('notifications/all/read', 'NotificationController@readAll');
+            Route::post('notifications/{notification}/read', 'NotificationController@read');
+            Route::delete('notifications/{notification}', 'NotificationController@delete');
+        });
+
+        /**** Announcements ****/
+        Route::namespace('API\v1\Announcement')->group(function () {
+            Route::get('announcements', 'AnnouncementController@list');
+            Route::get('announcements/my', 'AnnouncementController@listMy');
+            Route::get('announcements/{announcement}', 'AnnouncementController@details');
+            Route::post('announcements', 'AnnouncementController@create');
+            Route::patch('announcements/{announcement}', 'AnnouncementController@update');
+            Route::delete('announcements/{announcement}', 'AnnouncementController@delete');
         });
 
     });

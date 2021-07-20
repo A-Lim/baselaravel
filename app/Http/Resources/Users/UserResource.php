@@ -14,12 +14,14 @@ class UserResource extends JsonResource
      * @return array
      */
     public function toArray($request) {
-        // dd(UserGroupsResource::collection($this->usergroups));
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'avatar' => $this->avatar,
+            'phone' => $this->phone,
+            'gender' => $this->gender,
+            'date_of_birth' => $this->date_of_birth,
             'email_verified_at' => $this->email_verified_at,
             'status' => $this->status,
             'usergroups' => new UserGroupCollection($this->usergroups)

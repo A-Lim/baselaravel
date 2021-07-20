@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Traits;
 
+use Carbon\Carbon;
+
 trait CustomQuery {
     
     public static function buildQuery($data) {
@@ -45,10 +47,15 @@ trait CustomQuery {
                         break;
                     
                     case 'equals':
-                        if (in_array($key, ['created_at', 'updated_at']))
-                            $query->whereDate($key, $filterVal);
-                        else
+                        if (in_array($key, $class::$dateColumns)) {
+                            // date data will have multiple ':' which is the demiliter too
+                            $dateFilterData = explode(':', $value);
+                            array_shift($dateFilterData);
+                            $date = Carbon::parse(implode(':', $dateFilterData));
+                            $query->whereDate($key, $date);
+                        } else {
                             $query->where($key, $filterVal);
+                        }
                         break;
                     
                     default:

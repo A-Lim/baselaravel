@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ClearOldLogs::class
+        Commands\ClearOldLogs::class,
+        Commands\ClearTempFiles::class,
+        Commands\PublishAnnouncements::class
     ];
 
     /**
@@ -22,10 +24,20 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')
-        //          ->hourly();
+    protected function schedule(Schedule $schedule) {
+        // $schedule->command('clear:logs')
+        //     ->monthly();
+
+        // $schedule->command('push:announcements')
+        //     ->timezone('Asia/Kuala_Lumpur')
+        //     ->daily(env('PUSH_NOTIFICATION_TIME'));
+
+        // $schedule->command('credit:pending_points')
+        //     ->timezone('Asia/Kuala_Lumpur')
+        //     ->daily("08:00");
+
+        // $schedule->command('update:vouchers')
+        //     ->daily();
     }
 
     /**

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\User;
 use App\SystemSetting;
 use App\Repositories\User\IUserRepository;
+use App\Repositories\UserGroup\IUserGroupRepository;
 use App\Repositories\Auth\IOAuthRepository;
 use App\Repositories\SystemSetting\ISystemSettingRepository;
 
@@ -19,15 +20,18 @@ use Illuminate\Http\Request;
 class RegistrationController extends ApiController {
 
     private $userRepository;
+    private $userGroupRepository;
     private $oAuthRepository;
     private $systemSettingRepository;
 
     public function __construct(IUserRepository $iUserRepository,
+        IUserGroupRepository $iUserGroupRepository,
         IOAuthRepository $iOAuthRepository,
         ISystemSettingRepository $iSystemSettingRepository) {
         $this->middleware('guest');
 
         $this->userRepository = $iUserRepository;
+        $this->userGroupRepository = $iUserGroupRepository;
         $this->oAuthRepository = $iOAuthRepository;
         $this->systemSettingRepository = $iSystemSettingRepository;
     }
@@ -58,9 +62,16 @@ class RegistrationController extends ApiController {
         }
         
         // assign default usergroup
-        $default_usergroup = $this->systemSettingRepository->findByCode('default_usergroups');
-        if (!empty($default_usergroup->value))
-            $user->assignUserGroupsByIds($default_usergroup->value);
+        $default_usergroups = $this->systemSettingRepository->findByCode('default_usergroups');
+        
+        if (!empty($default_usergroups->value)) {
+            $userGroupIds = $default_usergroups->value;
+            $activeUserGroupsIds = $this->userGroupRepository->findByIdsWhereActive($userGroupIds)
+                ->pluck('id')
+                ->toArray();
+
+            $user->assignUserGroupsByIds($activeUserGroupIds);
+        }
 
         return $this->responseWithMessage(200, $registration_message);
     }

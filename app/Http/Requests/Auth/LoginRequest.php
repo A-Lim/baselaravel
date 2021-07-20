@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\CustomFormRequest;
+use App\Device;
 
 class LoginRequest extends CustomFormRequest {
 
@@ -20,7 +21,9 @@ class LoginRequest extends CustomFormRequest {
         return [
             'email' => 'required|email',
             'password' => 'required|string',
-            'rememberMe' => 'nullable|boolean'
+            'uuid' => 'nullable|string',
+            'token' => 'nullable|string|required_with:uuid',
+            'type' => 'nullable|string|required_with:uuid|in:'.implode(',', Device::TYPES)
         ];
     }
 }

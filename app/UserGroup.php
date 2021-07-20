@@ -3,19 +3,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 use App\Http\Traits\CustomQuery;
 
 class UserGroup extends Model {
-    use SoftDeletes, CustomQuery;
+    use SoftDeletes, CustomQuery, Notifiable;
 
     protected $table = 'usergroups';
-    protected $fillable = ['name', 'code', 'status', 'is_admin', 'deleted_at', 'created_by', 'updated_by'];
+    protected $fillable = ['name', 'code', 'status', 'deleted_at', 'created_by', 'updated_by'];
     protected $hidden = ['deleted_at', 'pivot', 'created_at', 'updated_at'];
     protected $casts = ['is_admin' => 'boolean'];
 
     // list of properties queryable for datatable
     public static $queryable = ['name', 'code', 'status', 'is_admin', 'deleted_at', 'created_by', 'updated_by'];
+    public static $dateColumns = ['created_at', 'updated_at', 'deleted_at'];
 
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
