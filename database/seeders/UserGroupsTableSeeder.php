@@ -3,8 +3,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\User;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\UserGroup;
 use Carbon\Carbon;
 
 class UserGroupsTableSeeder extends Seeder {

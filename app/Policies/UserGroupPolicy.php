@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserGroupPolicy {
@@ -12,7 +12,7 @@ class UserGroupPolicy {
     /**
      * Bypass any policy
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function before(User $user, $ability) {
@@ -23,7 +23,7 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can view any user groups.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user) {
@@ -34,8 +34,8 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can view the user group.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserGroup  $userGroup
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\UserGroup  $userGroup
      * @return mixed
      */
     public function view(User $user, UserGroup $userGroup) {
@@ -46,7 +46,7 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can create user groups.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function create(User $user) {
@@ -57,8 +57,8 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can update the user group.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserGroup  $userGroup
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\UserGroup  $userGroup
      * @return mixed
      */
     public function update(User $user, UserGroup $userGroup) {
@@ -69,8 +69,8 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can delete the user group.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserGroup  $userGroup
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\UserGroup  $userGroup
      * @return mixed
      */
     public function delete(User $user, UserGroup $userGroup) {
@@ -81,8 +81,8 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can restore the user group.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserGroup  $userGroup
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\UserGroup  $userGroup
      * @return mixed
      */
     public function restore(User $user, UserGroup $userGroup) {
@@ -92,8 +92,8 @@ class UserGroupPolicy {
     /**
      * Determine whether the user can permanently delete the user group.
      *
-     * @param  \App\User  $user
-     * @param  \App\UserGroup  $userGroup
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\UserGroup  $userGroup
      * @return mixed
      */
     public function forceDelete(User $user, UserGroup $userGroup) {

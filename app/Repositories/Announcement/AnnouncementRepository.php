@@ -1,9 +1,9 @@
 <?php
 namespace App\Repositories\Announcement;
 
-use App\User;
-use App\Usergroup;
-use App\Announcement;
+use App\Models\User;
+use App\Models\Usergroup;
+use App\Models\Announcement;
 use Carbon\Carbon;
 
 class AnnouncementRepository implements IAnnouncementRepository {

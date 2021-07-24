@@ -17,7 +17,7 @@ class AddUsersRequest extends CustomFormRequest {
     public function rules() {
         return [
             'userIds' => 'required|array',
-            'userIds.*' => 'integer'
+            'userIds.*' => 'integer|exists:users,id'
         ];
     }
 }

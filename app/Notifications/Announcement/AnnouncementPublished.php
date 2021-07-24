@@ -5,7 +5,7 @@ namespace App\Notifications\Announcement;
 use Illuminate\Notifications\Notification;
 
 use App\Channels\CustomFCMChannel;
-use App\Announcement;
+use App\Models\Announcement;
 
 class AnnouncementPublished extends Notification {
     private $announcement;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\SystemSetting;
 
-use App\SystemSetting;
+use App\Models\SystemSetting;
 use App\Http\Requests\CustomFormRequest;
 
 class UpdateRequest extends CustomFormRequest {

@@ -5,7 +5,7 @@ namespace App\Notifications\UserGroup;
 use Illuminate\Notifications\Notification;
 
 use App\Channels\FCMDataChannel;
-use App\UserGroup;
+use App\Models\UserGroup;
 
 class SyncPermissions extends Notification {
     

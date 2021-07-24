@@ -1,9 +1,12 @@
 <?php
-namespace App;
+namespace App\Models;
+
+use OwenIt\Auditing\Contracts\Auditable;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SystemSetting extends Model {
+class SystemSetting extends Model implements Auditable {
+    use \OwenIt\Auditing\Auditable;
 
     protected $table = 'systemsettings';
     protected $fillable = [];

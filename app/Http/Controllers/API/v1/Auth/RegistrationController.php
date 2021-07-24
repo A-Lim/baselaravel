@@ -9,8 +9,8 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Auth\RegistrationRequest;
 
 use Carbon\Carbon;
-use App\User;
-use App\SystemSetting;
+use App\Models\User;
+use App\Models\SystemSetting;
 use App\Repositories\User\IUserRepository;
 use App\Repositories\UserGroup\IUserGroupRepository;
 use App\Repositories\Auth\IOAuthRepository;

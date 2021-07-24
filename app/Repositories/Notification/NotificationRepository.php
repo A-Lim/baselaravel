@@ -3,9 +3,9 @@ namespace App\Repositories\Notification;
 
 use DB;
 use Carbon\Carbon;
-use App\User;
-use App\Notification;
-use App\NotificationLog;
+use App\Models\User;
+use App\Models\Notification;
+use App\Models\NotificationLog;
 
 class NotificationRepository implements INotificationRepository {
 

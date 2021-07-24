@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
 use Carbon\Carbon;
-use App\File;
+use App\Models\File;
 use DB;
 
 class FileRepository implements IFileRepository {

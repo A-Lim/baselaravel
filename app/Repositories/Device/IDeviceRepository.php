@@ -1,9 +1,9 @@
 <?php
 namespace App\Repositories\Device;
 
-use App\User;
-use App\Device;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\Device;
+use App\Models\UserGroup;
 
 interface IDeviceRepository {
     /**

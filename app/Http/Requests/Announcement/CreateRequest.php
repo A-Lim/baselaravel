@@ -4,7 +4,7 @@ namespace App\Http\Requests\Announcement;
 
 use App\Http\Requests\CustomFormRequest;
 
-use App\Announcement;
+use App\Models\Announcement;
 
 class CreateRequest extends CustomFormRequest {
 
@@ -33,7 +33,7 @@ class CreateRequest extends CustomFormRequest {
             'push_notification' => 'nullable|boolean',
             'has_content' => 'required|boolean',
             'content' => 'required_if:has_content,true',
-            'scheduled_publish_date' => 'nullable|after:today|date_format:Y-m-d\TH:i:s.v\Z'
+            'scheduled_publish_date' => 'nullable|after:today|date_format:Y-m-d'
         ];
     }
 }

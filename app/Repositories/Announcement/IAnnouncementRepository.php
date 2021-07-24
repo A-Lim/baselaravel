@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\Announcement;
 
-use App\User;
-use App\Announcement;
+use App\Models\User;
+use App\Models\Announcement;
 use Carbon\Carbon;
 
 interface IAnnouncementRepository {

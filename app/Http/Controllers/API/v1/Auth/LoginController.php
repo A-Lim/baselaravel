@@ -12,7 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ApiController;
 
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\LogoutRequest;
 
@@ -58,22 +58,8 @@ class LoginController extends ApiController {
             
             // retrieve user with avatar details
             $user = $this->userRepository->find(auth()->id());
-            switch ($user->status) {
-                case User::STATUS_LOCKED:
-                    return $this->responseWithMessage(401, 'This account is locked. Please contact administrator.');
-                    break;
-
-                case User::STATUS_INACTIVE:
-                    return $this->responseWithMessage(401, 'This account is inactive. Please contact administrator.');
-                    break;
-                
-                case User::STATUS_UNVERIFIED:
-                    return $this->responseWithMessage(401, 'This account is unverified. Please verify your email');
-                    break;
-            }
-
             $tokenResult = $user->createToken('accesstoken');
-            $permissions = $this->userRepository->permissions($user);
+            $permissions = $this->getPermissions($user);
 
             // save device and token details if exists
             if ($request->filled('uuid'))
@@ -152,5 +138,18 @@ class LoginController extends ApiController {
         $uploaded_file = new UploadedFile($file, uniqid(), 'image/jpeg', null, false);
         
         return $this->fileRepository->uploadOne('avatars', $uploaded_file, User::class, $user->id);
+    }
+
+    private function getPermissions(User $user) {
+        $permissions = [];
+        switch ($user->status) {
+            case User::STATUS_LOCKED:
+                return [];
+                break;
+            
+            // todo handle different cases of status
+        }
+
+        return $this->userRepository->permissions($user);
     }
 }

@@ -6,8 +6,8 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
-use App\Permission;
-use App\PermissionModule;
+use App\Models\Permission;
+use App\Models\PermissionModule;
 use App\Repositories\Permission\IPermissionRepository;
 
 class PermissionController extends ApiController {

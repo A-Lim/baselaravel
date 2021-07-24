@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 
 use Carbon\Carbon;
-use App\Announcement;
+use App\Models\Announcement;
 use App\Notifications\Announcement\AnnouncementPublished;
 use App\Repositories\Announcement\IAnnouncementRepository;
 

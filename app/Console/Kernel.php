@@ -25,6 +25,12 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule) {
+        $schedule->command('model:prune')->daily();
+
+        $schedule->command('announcements:publish')
+            ->timezone('Asia/Kuala_Lumpur')
+            ->daily(env('ANNOUNCEMENT_PUBLISH_TIME'));
+
         // $schedule->command('clear:logs')
         //     ->monthly();
 

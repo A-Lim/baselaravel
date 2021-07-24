@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Traits;
 
-use App\File;
+use App\Models\File;
 
 trait HasFiles {
     public function files() {

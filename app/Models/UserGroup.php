@@ -1,14 +1,15 @@
 <?php
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
 
 use App\Http\Traits\CustomQuery;
 
-class UserGroup extends Model {
-    use SoftDeletes, CustomQuery, Notifiable;
+class UserGroup extends Model implements Auditable {
+    use SoftDeletes, CustomQuery, Notifiable, \OwenIt\Auditing\Auditable;
 
     protected $table = 'usergroups';
     protected $fillable = ['name', 'code', 'status', 'deleted_at', 'created_by', 'updated_by'];

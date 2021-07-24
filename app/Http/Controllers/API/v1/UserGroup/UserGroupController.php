@@ -5,8 +5,8 @@ namespace App\Http\Controllers\API\v1\UserGroup;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 
-use App\User;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\UserGroup;
 use App\Repositories\UserGroup\IUserGroupRepository;
 
 use App\Http\Requests\UserGroup\CreateRequest;

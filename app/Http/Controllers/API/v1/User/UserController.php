@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Users\UserCollection;
 use App\Repositories\User\IUserRepository;

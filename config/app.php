@@ -182,6 +182,7 @@ return [
          * Third Party Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class,
     ],
 
     /*

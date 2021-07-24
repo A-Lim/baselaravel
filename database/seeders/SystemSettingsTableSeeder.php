@@ -3,8 +3,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\SystemSetting;
-use App\SystemSettingCategory;
+use App\Models\SystemSetting;
+use App\Models\SystemSettingCategory;
 
 use Carbon\Carbon;
 

@@ -1,10 +1,14 @@
 <?php
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\Prunable;
 
-class File extends Model {
+class File extends Model implements Auditable {
+
+    use Prunable, \OwenIt\Auditing\Auditable;
 
     protected $fillable = ['name', 'path', 'folder', 'extension', 'disk_type', 'visibility', 'fileable_id', 'fileable_type'];
     protected $hidden = ['path', 'folder', 'disk_type', 'visibility', 'fileable_id', 'fileable_type', 'created_at', 'updated_at'];
@@ -36,5 +40,18 @@ class File extends Model {
 
     public function fileable() {
         return $this->morphTo();
+    }
+
+    public function prunable() {
+        $files = static::where('created_at', '<=', now()->subDays(env('CLEAR_OLD_FILES_DAYS')))
+            ->where('fileable_type', null)
+            ->where('fileable_id', null);
+
+        foreach ($files as $file) {
+            Storage::disk($file->disk_type)
+                ->delete($file->path);
+        }
+
+        return $files;
     }
 }

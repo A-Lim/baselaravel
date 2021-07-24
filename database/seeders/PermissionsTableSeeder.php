@@ -3,8 +3,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\Permission;
-use App\PermissionModule;
+use App\Models\Permission;
+use App\Models\PermissionModule;
 use Carbon\Carbon;
 
 class PermissionsTableSeeder extends Seeder {

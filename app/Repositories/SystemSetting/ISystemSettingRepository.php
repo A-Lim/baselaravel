@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\SystemSetting;
 
-use App\SystemSetting;
+use App\Models\SystemSetting;
 
 interface ISystemSettingRepository {
     /**

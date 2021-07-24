@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Notification;
 
-use App\User;
-use App\Announcement;
+use App\Models\User;
+use App\Models\Announcement;
 
 use App\Http\Requests\Announcement\CreateRequest;
 use App\Http\Requests\Announcement\UpdateRequest;

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Device;
 
 use App\Http\Requests\CustomFormRequest;
-use App\Device;
+use App\Models\Device;
 
 class UpdateRequest extends CustomFormRequest {
 

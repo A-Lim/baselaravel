@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\Permission;
 
-use App\Permission;
-use App\PermissionModule;
+use App\Models\Permission;
+use App\Models\PermissionModule;
 
 class PermissionRepository implements IPermissionRepository {
 

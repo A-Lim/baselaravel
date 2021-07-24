@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-use App\ApiLog;
+use App\Models\ApiLog;
 use App\Repositories\ApiLog\IApiLogRepository;
 
 class ApiLogger {

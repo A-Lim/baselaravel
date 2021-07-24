@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Traits;
 
-use App\Device;
+use App\Models\Device;
 
 trait HasDevices {
     public function devices() {

@@ -2,10 +2,10 @@
 namespace App\Repositories\User;
 
 use DB;
-use App\User;
-use App\UserGroup;
-use App\Permission;
-use App\File;
+use App\Models\User;
+use App\Models\UserGroup;
+use App\Models\Permission;
+use App\Models\File;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;

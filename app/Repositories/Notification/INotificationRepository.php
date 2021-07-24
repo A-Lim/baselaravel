@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\Notification;
 
-use App\Notification;
-use App\User;
+use App\Models\Notification;
+use App\Models\User;
 
 interface INotificationRepository
 {

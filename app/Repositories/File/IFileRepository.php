@@ -2,7 +2,7 @@
 namespace App\Repositories\File;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\File;
+use App\Models\File;
 
 interface IFileRepository {
     /**

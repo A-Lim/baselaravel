@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\v1\SystemSetting;
 
 use Illuminate\Http\Request;
-use App\SystemSetting;
+use App\Models\SystemSetting;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\SystemSetting\UpdateRequest;
 use App\Repositories\SystemSetting\ISystemSettingRepository;

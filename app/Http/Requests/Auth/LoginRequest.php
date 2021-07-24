@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\CustomFormRequest;
-use App\Device;
+use App\Models\Device;
 
 class LoginRequest extends CustomFormRequest {
 

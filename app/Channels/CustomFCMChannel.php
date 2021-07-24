@@ -7,7 +7,7 @@ use App\Repositories\User\IUserRepository;
 use App\Repositories\Device\IDeviceRepository;
 use App\Repositories\Notification\INotificationRepository;
 
-use App\Announcement;
+use App\Models\Announcement;
 
 class CustomFCMChannel {
     private $userRepository;

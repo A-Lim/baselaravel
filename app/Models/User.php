@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\URL;
+use OwenIt\Auditing\Contracts\Auditable;
 
 use Laravel\Passport\HasApiTokens;
 use App\Notifications\CustomResetPassword;
@@ -14,8 +15,9 @@ use App\Http\Traits\HasDevices;
 use App\Http\Traits\CustomQuery;
 use App\Casts\Json;
 
-class User extends Authenticatable {
-    use Notifiable, HasApiTokens, HasUserGroups, HasDevices, CustomQuery;
+
+class User extends Authenticatable implements Auditable {
+    use Notifiable, HasApiTokens, HasUserGroups, HasDevices, CustomQuery, \OwenIt\Auditing\Auditable;
 
     protected $fillable = ['name', 'email', 'gender', 'date_of_birth', 'phone', 'password', 'email_verified_at', 'status'];
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];

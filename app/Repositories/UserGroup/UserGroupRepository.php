@@ -2,8 +2,8 @@
 namespace App\Repositories\UserGroup;
 
 use DB;
-use App\User;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\UserGroup;
 use Carbon\Carbon;
 
 class UserGroupRepository implements IUserGroupRepository {

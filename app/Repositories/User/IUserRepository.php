@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\User;
 
-use App\File;
-use App\User;
+use App\Models\File;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
 interface IUserRepository

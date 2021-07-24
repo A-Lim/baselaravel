@@ -7,7 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Schema;
 
-use App\Permission;
+use App\Models\Permission;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,11 +18,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\User' => 'App\Policies\UserPolicy',
-        'App\UserGroup' => 'App\Policies\UserGroupPolicy',
-        'App\Announcement' => 'App\Policies\AnnouncementPolicy',
-        'App\SystemSetting' => 'App\Policies\SystemSettingPolicy',
-        'App\Announcement' => 'App\Policies\AnnouncementPolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy',
+        'App\Models\UserGroup' => 'App\Policies\UserGroupPolicy',
+        'App\Models\Announcement' => 'App\Policies\AnnouncementPolicy',
+        'App\Models\SystemSetting' => 'App\Policies\SystemSettingPolicy',
+        'App\Models\Announcement' => 'App\Policies\AnnouncementPolicy',
     ];
 
     /**

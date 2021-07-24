@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Carbon\Carbon;
 
-use App\ApiLog;
+use App\Models\ApiLog;
 
 class ApiLogRepository implements IApiLogRepository {
 

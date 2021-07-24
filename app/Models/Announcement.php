@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\CustomQuery;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Announcement extends Model {
-    use CustomQuery;
+class Announcement extends Model implements Auditable {
+    use CustomQuery, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'title', 'description', 'status', 'audience', 'audience_data_id', 

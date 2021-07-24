@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Traits;
 
-use App\UserGroup;
+use App\Models\UserGroup;
 
 trait HasUserGroups {
     public function userGroups() {

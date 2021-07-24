@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\UserGroup;
 
-use App\User;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\UserGroup;
 
 interface IUserGroupRepository
 {

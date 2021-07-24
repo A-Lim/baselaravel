@@ -5,8 +5,8 @@ use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
-use App\SystemSetting;
-use App\SystemSettingCategory;
+use App\Models\SystemSetting;
+use App\Models\SystemSettingCategory;
 
 class SystemSettingRepository implements ISystemSettingRepository {
 

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\SystemSetting;
+use App\Models\User;
+use App\Models\SystemSetting;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SystemSettingPolicy {
@@ -12,7 +12,7 @@ class SystemSettingPolicy {
     /**
      * Bypass any policy
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function before(User $user, $ability) {
@@ -23,7 +23,7 @@ class SystemSettingPolicy {
     /**
      * Determine whether the user can view any user groups.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user) {
@@ -34,7 +34,7 @@ class SystemSettingPolicy {
     /**
      * Determine whether the user can update systemsettings.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function update(User $user) {

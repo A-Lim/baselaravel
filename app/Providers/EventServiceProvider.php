@@ -8,7 +8,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Listeners\SendEmailVerificationEmail;
-use App\File;
+use App\Models\File;
 use App\Observers\FileObserver;
 
 class EventServiceProvider extends ServiceProvider

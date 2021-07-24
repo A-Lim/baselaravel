@@ -7,7 +7,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\File\UploadRequest;
 use App\Repositories\File\IFileRepository;
 
-use App\File;
+use App\Models\File;
 
 class FileController extends ApiController {
 
