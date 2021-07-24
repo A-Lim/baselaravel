@@ -64,7 +64,7 @@ class CustomFCMChannel {
         $url = 'https://fcm.googleapis.com/fcm/send';
 
         $headers = [
-            'Authorization: key='.env('FCM_SERVER_KEY'),
+            'Authorization: key='.config('app.fcm_server_key'),
             'Content-Type: application/json',
             'Accept: application/json'
         ];

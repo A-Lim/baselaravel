@@ -240,4 +240,29 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom self defined
+    |--------------------------------------------------------------------------
+    */
+
+    // token expiration in seconds
+    'token' => [
+        'expiration' => env('PASSPORT_TOKEN_EXPIRATION', 3600),
+        'refresh_expiration' => env('PASSPORT_REFRESH_TOKEN_EXPIRATION', 3600)
+    ],
+
+    'file' => [
+        'disk_type' => env('DISK_TYPE', 'public'),
+        'visibility' => env('DISK_TYPE_VISIBILITY', 'public')
+    ],
+    
+    'clear' => [
+        'old_files' => env('CLEAR_OLD_FILES_DAYS', 30),
+        'old_logs' => env('CLEAR_OLD_LOGS_DAYS', 30)
+    ],
+    
+    'datatable_type' => env('DATATABLE_TYPE', 'AGGRID'),
+    'fcm_server_key' => env('FCM_SERVER_KEY'),
+    'announcement_publish_time' => env('ANNOUNCEMENT_PUBLISH_TIME', "08:00")
 ];

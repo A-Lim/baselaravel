@@ -13,8 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ClearOldLogs::class,
-        Commands\ClearTempFiles::class,
         Commands\PublishAnnouncements::class
     ];
 
@@ -29,7 +27,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('announcements:publish')
             ->timezone('Asia/Kuala_Lumpur')
-            ->daily(env('ANNOUNCEMENT_PUBLISH_TIME'));
+            ->daily(config('app.announcement_publish_time'));
 
         // $schedule->command('clear:logs')
         //     ->monthly();

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Casts\Json;
 use App\Http\Traits\CustomQuery;
-use App\Http\Traits\EnvTimezone;
 
 class Notification extends Model {
     use CustomQuery;

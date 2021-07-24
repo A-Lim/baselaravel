@@ -55,7 +55,6 @@ Route::prefix('v1')->group(function () {
 
         /**** Files ****/
         Route::namespace('API\v1\File')->group(function () {
-            Route::get('files', 'FileController@details');
             Route::post('files/upload', 'FileController@upload');
             Route::delete('files/{file}', 'FileController@delete');
         });
@@ -84,7 +83,7 @@ Route::prefix('v1')->group(function () {
         /**** Announcements ****/
         Route::namespace('API\v1\Announcement')->group(function () {
             Route::get('announcements', 'AnnouncementController@list');
-            Route::get('announcements/my', 'AnnouncementController@listMy');
+            // Route::get('announcements/my', 'AnnouncementController@listMy');
             Route::get('announcements/{announcement}', 'AnnouncementController@details');
             Route::post('announcements', 'AnnouncementController@create');
             Route::patch('announcements/{announcement}', 'AnnouncementController@update');

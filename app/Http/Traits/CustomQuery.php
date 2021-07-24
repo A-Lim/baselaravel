@@ -9,7 +9,7 @@ trait CustomQuery {
         // returns default query
         $class = static::class;
         $query = $class::query();
-        switch (env('DATATABLE_TYPE', 'DATATABLE')) {
+        switch (config('app.datatable_type')) {
             case 'DATATABLE':
                 break;
 

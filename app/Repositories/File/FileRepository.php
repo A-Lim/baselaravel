@@ -14,16 +14,16 @@ class FileRepository implements IFileRepository {
      * {@inheritdoc}
      */
     public function uploadOne($folder, UploadedFile $fileUpload, $fileableType = null, $fileableId = null) {
-        $path = Storage::disk(env('DISK_TYPE'))
-            ->putFile($folder, $fileUpload, env('DISK_TYPE_VISIBILITY'));
+        $path = Storage::disk(config('app.file.disk_type'))
+            ->putFile($folder, $fileUpload, config('app.file.visibility'));
 
         return File::create([
             'name' => $fileUpload->getClientOriginalName(),
             'path' => $path,
             'folder' => $folder,
             'extension' => $fileUpload->getClientOriginalExtension(),
-            'disk_type' => env('DISK_TYPE'),
-            'visibility' => env('DISK_TYPE_VISIBILITY'),
+            'disk_type' => config('app.file.disk_type'),
+            'visibility' => config('app.file.visibility'),
             'fileable_type' => $fileableType,
             'fileable_id' => $fileableId
         ]);
@@ -39,16 +39,16 @@ class FileRepository implements IFileRepository {
         $fileData = [];
 
         foreach ($files as $file) {
-            $path = Storage::disk(env('DISK_TYPE'))
-                ->putFile($folder, $file, env('DISK_TYPE_VISIBILITY'));
+            $path = Storage::disk(config('app.file.disk_type'))
+                ->putFile($folder, $file, config('app.file.visibility'));
             
             array_push($fileData, [
                 'name' => $file->getClientOriginalName(),
                 'path' => $path,
                 'folder' => $folder,
                 'extension' => $file->getClientOriginalExtension(),
-                'disk_type' => env('DISK_TYPE'),
-                'visibility' => env('DISK_TYPE_VISIBILITY')
+                'disk_type' => config('app.file.disk_type'),
+                'visibility' => config('app.file.visibility')
             ]);
         }
 

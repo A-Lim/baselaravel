@@ -18,11 +18,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Models\User' => 'App\Policies\UserPolicy',
-        'App\Models\UserGroup' => 'App\Policies\UserGroupPolicy',
-        'App\Models\Announcement' => 'App\Policies\AnnouncementPolicy',
-        'App\Models\SystemSetting' => 'App\Policies\SystemSettingPolicy',
-        'App\Models\Announcement' => 'App\Policies\AnnouncementPolicy',
+        \App\Models\User::class => \App\Policies\UserPolicy::class,
+        \App\Models\UserGroup::class => \App\Policies\UserGroupPolicy::class,
+        \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class,
+        \App\Models\SystemSetting::class => \App\Policies\SystemSettingPolicy::class,
+        \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class,
     ];
 
     /**
@@ -32,14 +32,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot() {
         $this->registerPolicies();
-
+        
         Passport::routes();
-        Passport::tokensExpireIn(now()->addSeconds(env('PASSPORT_TOKEN_EXPIRATION', '3600')));
-        Passport::personalAccessTokensExpireIn(now()->addSeconds(env('PASSPORT_TOKEN_EXPIRATION', '3600')));
-        Passport::refreshTokensExpireIn(now()->addSeconds(env('PASSPORT_REFRESH_TOKEN_EXPIRATION', '3600')));
+        Passport::tokensExpireIn(now()->addSeconds(config('app.token.expiration')));
+        Passport::personalAccessTokensExpireIn(now()->addSeconds(config('app.token.expiration')));
+        Passport::refreshTokensExpireIn(now()->addSeconds(config('app.token.refresh_expiration')));
 
         if (Schema::hasTable('permissions')) {
-            foreach ($this->getPermissions() as $permission) {
+            $permissions = $this->getPermissions();
+            foreach ($permissions as $permission) {
                 Gate::define($permission->code, function($user) use ($permission) {
                     return $user->hasUserGroup($permission->userGroups);
                 });

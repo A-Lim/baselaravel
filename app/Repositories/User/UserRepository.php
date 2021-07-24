@@ -16,6 +16,9 @@ use App\Http\Helpers\ImageProcessor;
 class UserRepository implements IUserRepository {
 
     public function permissions(User $user) {
+        if ($user->status == User::STATUS_LOCKED)
+            return collect();
+
         $userGroups = UserGroup::whereHas('users', function($query) use ($user) {
             $query->where('user_id', '=', $user->id);
         })->get();

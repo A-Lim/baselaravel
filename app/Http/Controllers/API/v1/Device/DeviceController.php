@@ -28,7 +28,7 @@ class DeviceController extends ApiController {
         $url = 'https://iid.googleapis.com/iid/v1:batchAdd';
 
         $headers = [
-            'Authorization: key='.env('FCM_SERVER_KEY'),
+            'Authorization: key='.config('app.fcm_server_key'),
             'Content-Type: application/json'
         ];
 

@@ -155,7 +155,7 @@ class UserGroupRepository implements IUserGroupRepository {
     /**
      * {@inheritdoc}
      */
-    public function delete(Usergroup $userGroup, $forceDelete = false) {
+    public function delete(UserGroup $userGroup, $forceDelete = false) {
         if ($forceDelete) {
             $userGroup->forceDelete();
         } else {

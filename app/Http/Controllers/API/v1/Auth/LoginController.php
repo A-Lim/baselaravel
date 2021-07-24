@@ -59,7 +59,7 @@ class LoginController extends ApiController {
             // retrieve user with avatar details
             $user = $this->userRepository->find(auth()->id());
             $tokenResult = $user->createToken('accesstoken');
-            $permissions = $this->getPermissions($user);
+            $permissions = $this->userRepository->permissions($user);
 
             // save device and token details if exists
             if ($request->filled('uuid'))
@@ -138,18 +138,5 @@ class LoginController extends ApiController {
         $uploaded_file = new UploadedFile($file, uniqid(), 'image/jpeg', null, false);
         
         return $this->fileRepository->uploadOne('avatars', $uploaded_file, User::class, $user->id);
-    }
-
-    private function getPermissions(User $user) {
-        $permissions = [];
-        switch ($user->status) {
-            case User::STATUS_LOCKED:
-                return [];
-                break;
-            
-            // todo handle different cases of status
-        }
-
-        return $this->userRepository->permissions($user);
     }
 }

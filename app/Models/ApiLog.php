@@ -14,6 +14,6 @@ class ApiLog extends Model {
 
     // automatically purge data after x amount of days
     public function prunable() {
-        return static::where('created_at', '<=', now()->subDays(env('CLEAR_OLD_LOGS_DAYS')));
+        return static::where('created_at', '<=', now()->subDays(config('app.clear.old_logs')));
     }
 }

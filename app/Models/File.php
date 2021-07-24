@@ -43,7 +43,7 @@ class File extends Model implements Auditable {
     }
 
     public function prunable() {
-        $files = static::where('created_at', '<=', now()->subDays(env('CLEAR_OLD_FILES_DAYS')))
+        $files = static::where('created_at', '<=', now()->subDays(config('app.clear.old_files')))
             ->where('fileable_type', null)
             ->where('fileable_id', null);
 
