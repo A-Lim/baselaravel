@@ -55,7 +55,7 @@ class FCMDataChannel {
         $params = [
             'data' => $data,
             'priority' => 'high',
-            'content_available' => true
+            // 'content_available' => true
         ];
 
         if ($registration_ids)

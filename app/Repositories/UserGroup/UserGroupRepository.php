@@ -32,8 +32,10 @@ class UserGroupRepository implements IUserGroupRepository {
             $type = $split[0];
             $values = $split[1];
 
-            $query->orderByRaw(DB::raw("FIELD(".$type.",".$values.") DESC"));
-            $limit += count(explode(',', $split[1]));
+            if ($values) {
+                $query->orderByRaw(DB::raw("FIELD(".$type.",".$values.") DESC"));
+                $limit += count(explode(',', $split[1]));
+            }
         }
 
         if ($paginate) 

@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\URL;
 use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Redactors\LeftRedactor;
 
 use Laravel\Passport\HasApiTokens;
 use App\Notifications\CustomResetPassword;
@@ -22,6 +23,10 @@ class User extends Authenticatable implements Auditable {
     protected $fillable = ['name', 'email', 'gender', 'date_of_birth', 'phone', 'password', 'email_verified_at', 'status'];
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
     protected $casts = [];
+
+    protected $attributeModifiers = [
+        'password' => LeftRedactor::class,
+    ];
 
     // list of properties queryable for datatable
     public static $queryable = ['name', 'email', 'phone', 'date_of_birth', 'gender', 'status'];

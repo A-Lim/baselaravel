@@ -27,7 +27,6 @@ Route::prefix('v1')->group(function () {
             Route::get('users', 'UserController@list');
             Route::get('users/{user}', 'UserController@details');
             Route::get('profile', 'UserController@profile');
-            Route::get('my/permissions', 'UserController@myPermissions');
             Route::post('users/{user}/reset-password', 'UserController@resetPassword');
             Route::patch('profile', 'UserController@updateProfile');
             Route::patch('users/{user}', 'UserController@update');
@@ -69,6 +68,7 @@ Route::prefix('v1')->group(function () {
         /**** Permissions ****/
         Route::namespace('API\v1\Permission')->group(function () {
             Route::get('permissions', 'PermissionController@list');
+            Route::get('permissions/my', 'PermissionController@myPermissions');
         });
 
         /**** Notifications ****/

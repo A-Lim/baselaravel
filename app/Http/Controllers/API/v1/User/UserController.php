@@ -41,12 +41,6 @@ class UserController extends ApiController {
         return $this->responseWithData(200, $user); 
     }
 
-    public function myPermissions(Request $request) {
-        $user = auth()->user();
-        $permissions = $this->userRepository->permissions($user);
-        return $this->responseWithData(200, $permissions);
-    }
-
     public function updateProfile(UpdateProfileRequest $request) {
         $authUser = auth()->user();
         $this->authorize('updateProfile', $authUser);

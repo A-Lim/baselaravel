@@ -53,7 +53,7 @@ class NotificationRepository implements INotificationRepository {
                 'created_at' => Carbon::now()
             ]);
         }
-
+        // if data count more than 100, consider chunk inserts instead
         Notification::insert($data);
     }
 
