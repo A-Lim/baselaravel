@@ -38,9 +38,7 @@ class AnnouncementController extends ApiController {
 
     public function create(CreateRequest $request) {
         $this->authorize('create', Announcement::class);
-
-        $data = $this->prepareData($request->all());
-        $announcement = $this->announcementRespository->create($data);
+        $announcement = $this->announcementRespository->create($request->all());
 
         // sent announcement notification
         if ($announcement->status == Announcement::STATUS_PUBLISHED &&
@@ -52,13 +50,11 @@ class AnnouncementController extends ApiController {
 
     public function update(UpdateRequest $request, Announcement $announcement) {
         $this->authorize('update', $announcement);
-
-        $data = $this->prepareData($request->all());
-        $announcement = $this->announcementRespository->update($announcement, $data);
+        $announcement = $this->announcementRespository->update($announcement, $request->all());
 
         // sent announcement notification
         if ($announcement->status == Announcement::STATUS_PUBLISHED && 
-            $announcement->push_notification && 
+            $announcement->push_notification &&
             !$announcement->notification_sent)
             Notification::send(null, new AnnouncementPublished($announcement));
         
@@ -76,37 +72,5 @@ class AnnouncementController extends ApiController {
 
         $this->announcementRespository->delete($announcement);
         return $this->responseWithMessage(200, 'Announcement deleted.');
-    }
-
-    private function prepareData($data) {
-        unset($data['status']);
-
-        if ($data['audience'] == Announcement::AUDIENCE_ALL)
-            unset($data['audience_data_id']);
-
-        switch ($data['action']) {
-            // check if has schedule date,
-            // if yes, status = pending
-            // if no, status = published
-            case Announcement::ACTION_PUBLISH:
-                if (isset($data['scheduled_publish_date']) && $data['scheduled_publish_date'] != null) {
-                    $data['status'] = Announcement::STATUS_PENDING;
-                } else {
-                    $data['status'] = Announcement::STATUS_PUBLISHED;
-                    $data['notification_sent'] = true;
-                }
-                break;
-
-            case Announcement::ACTION_SAVEDRAFT:
-                $data['status'] = Announcement::STATUS_DRAFT;
-                break;
-
-            case Announcement::ACTION_UPDATE:
-                // do nothing to change status
-                // just update other data
-                break;
-        }
-
-        return $data;
     }
 }

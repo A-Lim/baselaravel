@@ -14,7 +14,23 @@ class SyncPermissions extends Notification {
     }
 
     public function toDataFCM($notifiable) {
-        $userGroup = $notifiable;
+        $class = get_class($notifiable);
+        $type = null;
+
+        switch ($class) {
+            case 'App\Models\User':
+                $type = 'user';
+                break;
+
+            case 'App\Models\UserGroup':
+                $type = 'usergroup';
+                break;
+
+            default:
+                throw new Exception('Invalid class type.');
+        }
+
+        $data = $notifiable;
         $notification_data = [
             'data_notification' => true, // flag to update frontend if it's message or data notification
             'type' => 'permissions',
@@ -31,8 +47,8 @@ class SyncPermissions extends Notification {
         //     'users' => $users (array key must match the value of 'type')
         // ]
         return [
-            'type' => 'userGroup',
-            'userGroup' => $userGroup,
+            'type' => $type,
+            $type => $data,
             'payload' => $notification_data
         ];
     }

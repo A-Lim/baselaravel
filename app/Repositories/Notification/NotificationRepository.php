@@ -18,7 +18,7 @@ class NotificationRepository implements INotificationRepository {
         
         if ($paginate) {
             $limit = isset($data['limit']) ? $data['limit'] : 10;
-            return $query->paginate($limit);
+            return $query->simplePaginate($limit);
         }
 
         return $query->get();

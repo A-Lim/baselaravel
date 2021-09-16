@@ -25,7 +25,7 @@ class FCMDataChannel {
 
     public function send($notifiable, Notification $notification) {
         $data = $notification->toDataFCM($notifiable);
-        $userGroup = $data[$data['type']];
+        $model = $data[$data['type']];
         $device_ids = [];
 
         if (isset($data['topic'])) {
@@ -34,11 +34,15 @@ class FCMDataChannel {
         }
 
         switch ($data['type']) {
-            case 'userGroup':
-                $device_ids = $this->deviceRepository->getTokensForUserGroup($userGroup);
+            case 'user':
+                $device_ids = $this->deviceRepository->getTokensForUser($model);
+                break;
+
+            case 'usergroup':
+                $device_ids = $this->deviceRepository->getTokensForUserGroup($model);
                 break;
         }
-
+        
         if (!empty($device_ids))
             $this->sendNotification($data['payload'], $device_ids);
     }

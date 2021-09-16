@@ -63,10 +63,10 @@ class UserGroupController extends ApiController {
     public function update(UpdateRequest $request, UserGroup $userGroup) {
         $this->authorize('update', $userGroup);
 
-        // if ($userGroup->is_admin)
-        //     return $this->responseWithMessage(403, 'Unable to edit this usergroup');
+        if ($userGroup->is_admin)
+            return $this->responseWithMessage(403, 'Unable to edit this usergroup');
 
-        // $userGroup = $this->userGroupRepository->update($userGroup, $request->all());
+        $userGroup = $this->userGroupRepository->update($userGroup, $request->all());
         $userGroup->notify(new SyncPermissions());
         return $this->responseWithMessageAndData(200, $userGroup, 'User group updated.'); 
     }

@@ -27,6 +27,8 @@ class AnnouncementPublished extends Notification {
             'type_id' => $this->announcement->id
         ];
 
+        $this->announcement->update(['notification_sent' => true]);
+
         return [
             'topic' => $this->announcement->audience,
             'payload' => $notification_data
