@@ -9,13 +9,21 @@ interface IUserRepository
 {
 
     /**
-     * List users users
+     * List users
      * 
      * @param array $query
      * @param boolean $paginate = false
      * @return [User] / LengthAwarePaginator
      */
     public function list(array $query, $paginate = false);
+
+    /**
+     * Count users
+     * 
+     * @param array $conditions
+     * @return array User
+     */
+    public function count($conditions = null);
 
     /**
      * Find user from id

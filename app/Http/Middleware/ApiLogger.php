@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 
 use App\Models\ApiLog;
 use App\Repositories\ApiLog\IApiLogRepository;
@@ -27,7 +26,7 @@ class ApiLogger {
         return $next($request);
     }
 
-    public function terminate(Request $request, JsonResponse $response) {
+    public function terminate(Request $request, $response) {
         $this->apiLogRepository->create($request, $response);
     }
 }

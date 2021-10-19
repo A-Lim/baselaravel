@@ -25,15 +25,21 @@ class AnnouncementController extends ApiController {
     public function list(Request $request) {
         $this->authorize('viewAny', Announcement::class);
         $user = auth()->user();
-        $announcement = null;
+        $announcements = null;
         // if admin, list all
         // if user, list relevant
         if ($user->isAdmin())
-            $announcement = $this->announcementRespository->list($request->all(), true);
+            $announcements = $this->announcementRespository->list($request->all(), true);
         else 
-            $announcement = $this->announcementRespository->listMy($user, true);
+            $announcements = $this->announcementRespository->listMy($user, true);
 
-        return $this->responseWithData(200, $announcement);
+        return $this->responseWithData(200, $announcements);
+    }
+
+    public function listMy(Request $request) {
+        $user = auth()->user();
+        $announcements = $this->announcementRespository->listMyAndPublished($user, $request->all(), true);
+        return $this->responseWithData(200, $announcements);
     }
 
     public function create(CreateRequest $request) {

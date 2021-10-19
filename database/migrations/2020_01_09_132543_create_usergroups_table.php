@@ -20,7 +20,7 @@ class CreateUsergroupsTable extends Migration
             $table->string('status', 20);
             $table->boolean('is_admin')->default(false);
             $table->softDeletes();
-            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });

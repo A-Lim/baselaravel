@@ -21,6 +21,7 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'systemsettings', 'name' => 'System Settings', 'description' => 'System Settings module', 'is_active' => '1'],
             ['code' => 'apilogs', 'name' => 'Api Logs', 'description' => 'Api logs module', 'is_active' => '1'],
             ['code' => 'announcements', 'name' => 'Announcements', 'description' => 'Announcements module', 'is_active' => '1'],
+            ['code' => 'dashboards', 'name' => 'Dashboards', 'description' => 'Dashboards module', 'is_active' => '1'],
         ];
 
         $permissions = [
@@ -49,6 +50,12 @@ class PermissionsTableSeeder extends Seeder {
             ['permission_module_id' => '5', 'code' => 'announcements.create', 'name' => 'Create Announcements', 'description' => ''],
             ['permission_module_id' => '5', 'code' => 'announcements.update', 'name' => 'Update Announcements', 'description' => ''],
             ['permission_module_id' => '5', 'code' => 'announcements.delete', 'name' => 'Delete Announcements', 'description' => ''],
+            // dashboards
+            ['permission_module_id' => '6', 'code' => 'dashboards.view', 'name' => 'View Dashboards', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'dashboards.viewAny', 'name' => 'View Any Dashboards', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'dashboards.create', 'name' => 'Create Dashboards', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'dashboards.update', 'name' => 'Update Dashboards', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'dashboards.delete', 'name' => 'Delete Dashboards', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);

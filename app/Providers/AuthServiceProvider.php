@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Policies\DashboardPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
@@ -23,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class,
         \App\Models\SystemSetting::class => \App\Policies\SystemSettingPolicy::class,
         \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class,
+        \App\Models\Dashboard::class => \App\Policies\DashboardPolicy::class
     ];
 
     /**

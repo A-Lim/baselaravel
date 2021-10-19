@@ -26,7 +26,7 @@ class CreateAnnouncementsTable extends Migration
             $table->boolean('notification_sent')->default(false);
             $table->date('scheduled_publish_date')->nullable();
             $table->datetime('published_at')->nullable();
-            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });

@@ -49,6 +49,29 @@ class AnnouncementRepository implements IAnnouncementRepository {
     /**
      * {@inheritdoc}
      */
+    public function listMyAndPublished(User $user, $data, $paginate = false) {
+        $limit = isset($data['limit']) ? $data['limit'] : 10;
+
+        $usergroup_ids = $user->usergroups
+            ->pluck('id')
+            ->toArray();
+
+        $query = Announcement::with('image')
+            ->where('audience', Announcement::AUDIENCE_USERGROUPS)
+            ->whereIn('audience_data_id', $usergroup_ids)
+            ->orWhere('audience', Announcement::AUDIENCE_ALL)
+            ->where('status', 'published')
+            ->orderBy('id', 'desc');
+
+        if ($paginate) 
+            return $query->paginate($limit);
+
+        return $query->get();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function listPendingForPublish(Carbon $scheduled_publish_date) {
         return Announcement::where('status', Announcement::STATUS_PENDING)
             ->where('scheduled_publish_date', $scheduled_publish_date)
@@ -61,6 +84,18 @@ class AnnouncementRepository implements IAnnouncementRepository {
      */
     public function find($id) {
         return Announcement::find($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function count($conditions = null) {
+        $query = Announcement::query();
+
+        if ($conditions)
+            $query->where($conditions);
+
+        return $query->count();
     }
 
     /**

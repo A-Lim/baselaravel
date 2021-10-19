@@ -62,6 +62,18 @@ class UserRepository implements IUserRepository {
     /**
      * {@inheritdoc}
      */
+    public function count($conditions = null) {
+        $query = User::query();
+
+        if ($conditions)
+            $query->where($conditions);
+
+        return $query->count();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function find($id) {
         return User::with('avatar')
             ->where('id', $id)

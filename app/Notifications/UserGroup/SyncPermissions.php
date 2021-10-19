@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notification;
 
 use App\Channels\FCMDataChannel;
 use App\Models\UserGroup;
+use Exception;
 
 class SyncPermissions extends Notification {
     

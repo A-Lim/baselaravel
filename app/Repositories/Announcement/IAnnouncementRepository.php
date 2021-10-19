@@ -23,6 +23,15 @@ interface IAnnouncementRepository {
     public function listMy(User $user, $paginate = false);
 
     /**
+     * List published announcement related to user
+     * @param User $user
+     * @param array $data
+     * @param boolean $paginate = false
+     * @return array Announcement
+     */
+    public function listMyAndPublished(User $user, $data, $paginate = false);
+
+    /**
      * List pending announcements by scheduled publish date
      * @param Carbon $date
      * @return array Announcement
@@ -50,6 +59,14 @@ interface IAnnouncementRepository {
      * @param Announcement announcement
      */
     public function find($id);
+
+    /**
+     * Count announcements
+     * 
+     * @param array $conditions
+     * @return array Announcement
+     */
+    public function count($conditions = null);
 
     /**
      * Deletes an announcement

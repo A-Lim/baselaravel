@@ -13,7 +13,8 @@ class Notification extends Model {
     protected $fillable = ['user_id', 'notification_log_id', 'title', 'description', 'payload', 'read'];
     protected $hidden = ['user_id', 'notification_log_id'];
     protected $casts = [
-        'payload' => Json::class
+        'payload' => Json::class,
+        'read' => 'boolean'
     ];
 
     // list of properties queryable for datatable
