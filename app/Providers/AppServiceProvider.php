@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
         $this->app->resolving(LengthAwarePaginator::class, static function (LengthAwarePaginator $paginator) {
             return $paginator->appends(request()->query());
         });
