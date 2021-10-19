@@ -33,12 +33,9 @@ class LoginControllerApiTest extends ApiBaseTestCase {
                 'password' => '123456789'
             ]);
 
-        $response->assertStatus(422);
-        $response->assertJsonStructure([
-            'message',
-            'errors' => [
-                'email'
-            ],
+        $response->assertStatus(401);
+        $response->assertJson([
+            'message' => 'Invalid login credentials.',
         ]);
     }
 
