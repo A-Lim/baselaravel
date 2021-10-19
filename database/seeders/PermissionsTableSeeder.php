@@ -2,6 +2,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 
 use App\Models\Permission;
 use App\Models\PermissionModule;
