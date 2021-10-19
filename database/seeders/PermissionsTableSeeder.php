@@ -60,5 +60,10 @@ class PermissionsTableSeeder extends Seeder {
 
         PermissionModule::insert($permission_modules);
         Permission::insert($permissions);
+
+        // cached to be used in authserviceprovider to register gates
+        Cache::rememberForEver('permissions_with_usergroups', function() {
+            return Permission::with('userGroups')->get();
+        });
     }
 }
