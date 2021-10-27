@@ -45,7 +45,9 @@ class DashboardRepository implements IDashboardRepository {
 
         DB::beginTransaction();
         $dashboard = Dashboard::create($data);
-        $dashboard->widgets()->createMany($data['widgets']);
+        if (isset($data['widgets'])) {
+            $dashboard->widgets()->createMany($data['widgets']);
+        }
         DB::commit();
 
         return $this->find($dashboard->id);

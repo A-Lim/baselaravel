@@ -19,11 +19,11 @@ class SyncPermissions extends Notification {
         $type = null;
 
         switch ($class) {
-            case 'App\Models\User':
+            case \App\Models\User::class:
                 $type = 'user';
                 break;
 
-            case 'App\Models\UserGroup':
+            case \App\Models\UserGroup::class:
                 $type = 'usergroup';
                 break;
 
