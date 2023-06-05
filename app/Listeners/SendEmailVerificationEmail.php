@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use Mail;
 use Illuminate\Auth\Events\Registered;
 
 class SendEmailVerificationEmail {

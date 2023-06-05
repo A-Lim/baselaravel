@@ -1,10 +1,7 @@
 <?php
 namespace App\Http\Controllers\API\v1\Device;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
-
-use App\Models\User;
 use App\Http\Requests\Device\UpdateRequest;
 use App\Repositories\Device\IDeviceRepository;
 

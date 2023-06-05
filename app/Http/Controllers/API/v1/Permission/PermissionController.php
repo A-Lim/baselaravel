@@ -5,9 +5,6 @@ namespace App\Http\Controllers\API\v1\Permission;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 
-use Carbon\Carbon;
-use App\Models\Permission;
-use App\Models\PermissionModule;
 use App\Repositories\Permission\IPermissionRepository;
 use App\Repositories\User\IUserRepository;
 

@@ -3,11 +3,10 @@ namespace App\Repositories\File;
 
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\FileBag;
 
 use Carbon\Carbon;
 use App\Models\File;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class FileRepository implements IFileRepository {
     /**
@@ -41,7 +40,7 @@ class FileRepository implements IFileRepository {
         foreach ($files as $file) {
             $path = Storage::disk(config('app.file.disk_type'))
                 ->putFile($folder, $file, config('app.file.visibility'));
-            
+
             array_push($fileData, [
                 'name' => $file->getClientOriginalName(),
                 'path' => $path,
@@ -73,7 +72,7 @@ class FileRepository implements IFileRepository {
         $files = $query->get();
 
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
-        
+
         foreach ($files as $file) {
             $output->writeln('<info> Deleting file ['.$file->name.']...</info>');
             Storage::disk($file->disk_type)

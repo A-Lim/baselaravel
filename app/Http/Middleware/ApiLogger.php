@@ -4,8 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
-use App\Models\ApiLog;
 use App\Repositories\ApiLog\IApiLogRepository;
 
 class ApiLogger {

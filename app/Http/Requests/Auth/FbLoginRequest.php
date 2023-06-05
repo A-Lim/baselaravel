@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\CustomFormRequest;
-use App\Models\Device;
 
 class FbLoginRequest extends CustomFormRequest {
 

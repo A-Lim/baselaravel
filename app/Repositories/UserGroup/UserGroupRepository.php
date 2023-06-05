@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\UserGroup;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\UserGroup;
 use Carbon\Carbon;

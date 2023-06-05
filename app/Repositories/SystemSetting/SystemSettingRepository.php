@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\SystemSetting;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 

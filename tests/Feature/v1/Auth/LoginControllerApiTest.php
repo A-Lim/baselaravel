@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\v1\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\WithFaker;
 use Tests\ApiBaseTestCase;
 
 class LoginControllerApiTest extends ApiBaseTestCase {
@@ -14,7 +14,7 @@ class LoginControllerApiTest extends ApiBaseTestCase {
                 'email' => 'alexiuslim1994@gmail.com',
                 'password' => '123456789'
             ]);
-        
+
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => [
@@ -41,7 +41,7 @@ class LoginControllerApiTest extends ApiBaseTestCase {
 
     public function test_login_with_invalid_password() {
         $response = $this->getInvalidPasswordResponse();
-        
+
         $response->assertStatus(401);
         $response->assertJsonStructure([
             'message',
@@ -51,7 +51,7 @@ class LoginControllerApiTest extends ApiBaseTestCase {
     public function test_login_with_no_input() {
         $response = $this->withHeaders($this->headers)
             ->json('POST', '/api/v1/login', []);
-        
+
         $response->assertStatus(422);
         $response->assertJsonStructure([
             'message',
@@ -68,7 +68,7 @@ class LoginControllerApiTest extends ApiBaseTestCase {
             // response with invalid password
             $this->getInvalidPasswordResponse();
         }
-        
+
         // 6th time should trigger lockout event
         $response = $this->getInvalidPasswordResponse();
         // 429 - Too Many Requests

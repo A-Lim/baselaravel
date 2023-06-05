@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->resolving(LengthAwarePaginator::class, static function (LengthAwarePaginator $paginator) {
             return $paginator->appends(request()->query());
         });
-        
+
         $this->app->resolving(Paginator::class, static function (Paginator $paginator) {
             return $paginator->appends(request()->query());
         });

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\v1\Auth;
 
 use App\Http\Controllers\ApiController;
-use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 
 use App\Http\Requests\Auth\VerifyEmailRequest;
@@ -54,7 +53,7 @@ class VerificationController extends ApiController {
 
         $user = $this->userRepository->searchForOne(['email' => $request->email]);
         $user->sendEmailVerificationNotification();
-        
+
         if ($user->hasVerifiedEmail()) {
             return $this->responseWithMessage(400, 'Email is already verified.');
         }

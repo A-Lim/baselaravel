@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories\Notification;
 
-use DB;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Notification;
@@ -15,7 +14,7 @@ class NotificationRepository implements INotificationRepository {
     public function list(User $user, $data, $paginate = false) {
         $query = Notification::where('user_id', $user->id)
             ->orderBy('id', 'desc');
-        
+
         if ($paginate) {
             $limit = isset($data['limit']) ? $data['limit'] : 10;
             return $query->simplePaginate($limit);
@@ -32,7 +31,7 @@ class NotificationRepository implements INotificationRepository {
             ->where('read', false)
             ->count();
     }
-    
+
     /**
      * {@inheritdoc}
      */

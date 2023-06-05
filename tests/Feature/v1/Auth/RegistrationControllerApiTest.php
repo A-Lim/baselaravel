@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\v1\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\WithFaker;
 use Tests\ApiBaseTestCase;
 
 class RegistrationControllerApiTest extends ApiBaseTestCase {
@@ -16,7 +16,7 @@ class RegistrationControllerApiTest extends ApiBaseTestCase {
                 'password' => '123456789',
                 'password_confirmation' => '123456789'
             ]);
-        
+
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'message'

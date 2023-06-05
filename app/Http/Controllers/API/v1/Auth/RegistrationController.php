@@ -1,10 +1,7 @@
 <?php
 namespace App\Http\Controllers\API\v1\Auth;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
-
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Auth\RegistrationRequest;
 
@@ -16,7 +13,6 @@ use App\Repositories\UserGroup\IUserGroupRepository;
 use App\Repositories\Auth\IOAuthRepository;
 use App\Repositories\SystemSetting\ISystemSettingRepository;
 
-use Illuminate\Http\Request;
 class RegistrationController extends ApiController {
 
     private $userRepository;
@@ -60,10 +56,10 @@ class RegistrationController extends ApiController {
             $registration_message .= ' An will be sent to verify your account.';
             event(new Registered($user));
         }
-        
+
         // assign default usergroup
         $default_usergroups = $this->systemSettingRepository->findByCode('default_usergroups');
-        
+
         if (!empty($default_usergroups->value)) {
             $userGroupIds = $default_usergroups->value;
             $activeUserGroupsIds = $this->userGroupRepository->findByIdsWhereActive($userGroupIds)

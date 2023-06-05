@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Http\Resources\Users\UserResource;
-use App\Http\Resources\Users\UserCollection;
 use App\Repositories\User\IUserRepository;
 use App\Repositories\File\IFileRepository;
 
@@ -27,18 +26,18 @@ class UserController extends ApiController {
         $this->userRepository = $iUserRepository;
         $this->fileRepository = $iFileRepository;
     }
-    
+
     public function list(Request $request) {
         if ($request->type != 'formcontrol')
             $this->authorize('viewAny', User::class);
-            
+
         $users = $this->userRepository->list($request->all(), true);
         return $this->responseWithData(200, $users);
     }
 
     public function profile(Request $request) {
         $user = $this->userRepository->find(auth()->id());
-        return $this->responseWithData(200, $user); 
+        return $this->responseWithData(200, $user);
     }
 
     public function updateProfile(UpdateProfileRequest $request) {
@@ -52,7 +51,7 @@ class UserController extends ApiController {
         // user attempting to change password
         if ($request->has('oldPassword') && $request->oldPassword != null) {
             $credentials = ['email' => $authUser->email, 'password' => $request->oldPassword];
-            
+
             if (!Auth::guard('web')->attempt($credentials)) {
                 return $this->responseWithMessage(401, 'Invalid old password.');
             }
@@ -61,13 +60,13 @@ class UserController extends ApiController {
 
         $user = $this->userRepository->update(auth()->user(), $data);
         $userResource = new UserResource($user);
-        return $this->responseWithMessageAndData(200, $userResource, 'Profile updated.');  
+        return $this->responseWithMessageAndData(200, $userResource, 'Profile updated.');
     }
 
     public function uploadProfileAvatar(UploadAvatarRequest $request) {
         $user = auth()->user();
         $this->authorize('updateProfile', $user);
-        
+
         // delete old avatar
         if ($user->avatar)
             $user->avatar->delete();
@@ -92,19 +91,19 @@ class UserController extends ApiController {
         $this->userRepository->saveAvatar($user, $file);
         return $this->responseWithMessageAndData(200, $file, 'User avatar updated.');
     }
- 
+
     public function details(Request $request, User $user) {
         $this->authorize('view', $user);
         $user = $this->userRepository->findWithUserGroups($user->id);
         $userResource = new UserResource($user);
-        return $this->responseWithData(200, $userResource); 
+        return $this->responseWithData(200, $userResource);
     }
 
     public function update(UpdateRequest $request, User $user) {
         $this->authorize('update', $user);
         $user = $this->userRepository->update($user, $request->all());
         $userResource = new UserResource($user);
-        return $this->responseWithMessageAndData(200, $userResource, 'User updated.'); 
+        return $this->responseWithMessageAndData(200, $userResource, 'User updated.');
     }
 
     public function resetPassword(Request $request, User $user) {

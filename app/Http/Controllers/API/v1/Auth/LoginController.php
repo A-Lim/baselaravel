@@ -5,13 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\UploadedFile;
-use Laravel\Passport\Passport;
 use Laravel\Socialite\Facades\Socialite;
-
-
 use App\Http\Controllers\ApiController;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\LogoutRequest;

@@ -1,19 +1,17 @@
 <?php
 namespace App\Repositories\SystemSetting;
 
-use App\Models\SystemSetting;
-
 interface ISystemSettingRepository {
     /**
      * List all systemsettings grouped by systemsettingcategory
-     * 
+     *
      * @return [SystemSettingCategory]
      */
     public function list();
 
     /**
      * Update multple systemsettings at once
-     * 
+     *
      * @param array ['code' => 'value']
      * @return void
      */
@@ -21,7 +19,7 @@ interface ISystemSettingRepository {
 
     /**
      * Find by Code
-     * 
+     *
      * @param string - code
      * @return void
      */
@@ -29,7 +27,7 @@ interface ISystemSettingRepository {
 
     /**
      * Find by Codes
-     * 
+     *
      * @param array string[] - array of codes
      * @return void
      */

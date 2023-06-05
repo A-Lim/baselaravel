@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\User;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\UserGroup;
 use App\Models\Permission;
@@ -9,9 +9,6 @@ use App\Models\File;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\UploadedFile;
-
-use App\Http\Helpers\ImageProcessor;
 
 class UserRepository implements IUserRepository {
 
@@ -22,8 +19,8 @@ class UserRepository implements IUserRepository {
         $userGroups = UserGroup::whereHas('users', function($query) use ($user) {
             $query->where('user_id', '=', $user->id);
         })->get();
-        
-        
+
+
         $isAdmins = $userGroups->pluck('is_admin')->all();
         // check if there is an admin usergroups among the user's usergroup
         $hasAdmin = in_array(true, $isAdmins);
@@ -39,7 +36,7 @@ class UserRepository implements IUserRepository {
 
         return $permissions;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -55,7 +52,7 @@ class UserRepository implements IUserRepository {
             $limit = isset($data['limit']) ? $data['limit'] : 10;
             return $query->paginate($limit);
         }
-        
+
         return $query->get();
     }
 

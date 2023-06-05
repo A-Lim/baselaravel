@@ -2,7 +2,6 @@
 namespace App\Http\Traits;
 
 use Carbon\Carbon;
-use Symfony\Component\HttpFoundation\Response;
 
 trait ApiResponse {
     protected $headers = ['Content-Type' => 'application/json'];

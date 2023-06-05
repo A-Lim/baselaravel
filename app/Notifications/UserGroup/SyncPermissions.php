@@ -5,11 +5,10 @@ namespace App\Notifications\UserGroup;
 use Illuminate\Notifications\Notification;
 
 use App\Channels\FCMDataChannel;
-use App\Models\UserGroup;
 use Exception;
 
 class SyncPermissions extends Notification {
-    
+
     public function via($notifiable) {
         return [FCMDataChannel::class];
     }
@@ -42,7 +41,7 @@ class SyncPermissions extends Notification {
         // - topic: "all" or any topic that is registered in fcm
         // - type: type of data
         // - "string": "data"
-        // eg: 
+        // eg:
         // [
         //     'type' => 'users'
         //     'users' => $users (array key must match the value of 'type')

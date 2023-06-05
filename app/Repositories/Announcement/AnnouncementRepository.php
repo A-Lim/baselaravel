@@ -2,7 +2,6 @@
 namespace App\Repositories\Announcement;
 
 use App\Models\User;
-use App\Models\Usergroup;
 use App\Models\Announcement;
 use Carbon\Carbon;
 
@@ -17,8 +16,8 @@ class AnnouncementRepository implements IAnnouncementRepository {
         $query = Announcement::buildQuery($data)
             ->with('image')
             ->orderBy('id', 'desc');
-            
-        if ($paginate) 
+
+        if ($paginate)
             return $query->paginate($limit);
 
         return $query->get();
@@ -40,7 +39,7 @@ class AnnouncementRepository implements IAnnouncementRepository {
             ->orWhere('audience', Announcement::AUDIENCE_ALL)
             ->orderBy('id', 'desc');
 
-        if ($paginate) 
+        if ($paginate)
             return $query->paginate($limit);
 
         return $query->get();
@@ -63,7 +62,7 @@ class AnnouncementRepository implements IAnnouncementRepository {
             ->where('status', 'published')
             ->orderBy('id', 'desc');
 
-        if ($paginate) 
+        if ($paginate)
             return $query->paginate($limit);
 
         return $query->get();
@@ -115,7 +114,7 @@ class AnnouncementRepository implements IAnnouncementRepository {
         $data['updated_by'] = auth()->id();
         $announcement->fill($data);
         $announcement->save();
-        
+
         return $announcement;
     }
 
@@ -144,9 +143,9 @@ class AnnouncementRepository implements IAnnouncementRepository {
             case Announcement::ACTION_PUBLISH:
                 if (isset($data['scheduled_publish_date']) && $data['scheduled_publish_date'] != null)
                     $data['status'] = Announcement::STATUS_PENDING;
-                else 
+                else
                     $data['status'] = Announcement::STATUS_PUBLISHED;
-                
+
                 break;
 
             case Announcement::ACTION_SAVEDRAFT:

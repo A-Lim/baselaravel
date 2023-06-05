@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Auth\Notifications\ResetPassword;
 
@@ -33,7 +32,7 @@ class CustomResetPassword extends ResetPassword {
         if (static::$toMailCallback) {
             return call_user_func(static::$toMailCallback, $notifiable, $this->token);
         }
-        
+
         // frontend url for reset password
         $param = ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()];
         $query = http_build_query($param);

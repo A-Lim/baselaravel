@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\URL;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Redactors\LeftRedactor;
 
@@ -14,8 +13,6 @@ use App\Notifications\CustomVerifyEmail;
 use App\Http\Traits\HasUserGroups;
 use App\Http\Traits\HasDevices;
 use App\Http\Traits\CustomQuery;
-use App\Casts\Json;
-
 
 class User extends Authenticatable implements Auditable {
     use Notifiable, HasApiTokens, HasUserGroups, HasDevices, CustomQuery, \OwenIt\Auditing\Auditable;

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\v1\Dashboard;
 use App\Models\Dashboard;
 use App\Models\Widget;
 use App\Http\Controllers\ApiController;
-use Illuminate\Http\Request;
 
 use App\Http\Requests\Dashboard\CreateRequest;
 use App\Http\Requests\Dashboard\UpdateRequest;

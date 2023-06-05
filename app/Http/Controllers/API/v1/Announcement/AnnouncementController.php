@@ -4,8 +4,6 @@ namespace App\Http\Controllers\API\v1\Announcement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Notification;
-
-use App\Models\User;
 use App\Models\Announcement;
 
 use App\Http\Requests\Announcement\CreateRequest;
@@ -30,7 +28,7 @@ class AnnouncementController extends ApiController {
         // if user, list relevant
         if ($user->isAdmin())
             $announcements = $this->announcementRespository->list($request->all(), true);
-        else 
+        else
             $announcements = $this->announcementRespository->listMy($user, true);
 
         return $this->responseWithData(200, $announcements);
@@ -50,7 +48,7 @@ class AnnouncementController extends ApiController {
         if ($announcement->status == Announcement::STATUS_PUBLISHED &&
             $announcement->push_notification)
             Notification::send(null, new AnnouncementPublished($announcement));
-        
+
         return $this->responseWithMessageAndData(201, $announcement, 'Announcement created.');
     }
 
@@ -59,11 +57,11 @@ class AnnouncementController extends ApiController {
         $announcement = $this->announcementRespository->update($announcement, $request->all());
 
         // sent announcement notification
-        if ($announcement->status == Announcement::STATUS_PUBLISHED && 
+        if ($announcement->status == Announcement::STATUS_PUBLISHED &&
             $announcement->push_notification &&
             !$announcement->notification_sent)
             Notification::send(null, new AnnouncementPublished($announcement));
-        
+
         return $this->responseWithMessageAndData(200, $announcement, 'Announcement updated.');
     }
 

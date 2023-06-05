@@ -3,14 +3,13 @@ namespace App\Repositories\User;
 
 use App\Models\File;
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 
 interface IUserRepository
 {
 
     /**
      * List users
-     * 
+     *
      * @param array $query
      * @param boolean $paginate = false
      * @return [User] / LengthAwarePaginator
@@ -19,7 +18,7 @@ interface IUserRepository
 
     /**
      * Count users
-     * 
+     *
      * @param array $conditions
      * @return array User
      */
@@ -27,7 +26,7 @@ interface IUserRepository
 
     /**
      * Find user from id
-     * 
+     *
      * @param integer $id
      * @return User
      */
@@ -35,23 +34,23 @@ interface IUserRepository
 
     /**
      * Find user from id with usergroups
-     * 
+     *
      * @param integer $id
      * @return User
      */
     public function findWithUserGroups($id);
-    
+
     /**
      * Find user based on params
-     * 
+     *
      * @param array $params
      * @return User
      */
     public function searchForOne($params);
-    
+
     /**
      * Creates a user
-     * 
+     *
      * @param array $data
      * @return User
      */
@@ -59,7 +58,7 @@ interface IUserRepository
 
      /**
      * Update a user
-     * 
+     *
      * @param User $user
      * @param array $data
      * @return User
@@ -68,7 +67,7 @@ interface IUserRepository
 
     /**
      * Reset user password
-     * 
+     *
      * @param User $user
      * @param string $password
      * @return void
@@ -77,7 +76,7 @@ interface IUserRepository
 
     /**
      * Save user avatar
-     * 
+     *
      * @param User $user
      * @return null
      */

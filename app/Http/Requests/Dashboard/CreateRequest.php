@@ -4,14 +4,12 @@ namespace App\Http\Requests\Dashboard;
 
 use App\Http\Requests\CustomFormRequest;
 
-use App\Models\Dashboard;
-
 class CreateRequest extends CustomFormRequest {
 
     public function __construct() {
         parent::__construct();
     }
-    
+
     public function authorize() {
         return true;
     }

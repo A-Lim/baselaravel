@@ -1,9 +1,8 @@
 <?php
 namespace App\Repositories\Dashboard;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Widget;
 use App\Models\WidgetType;
 use App\Models\Dashboard;
 
