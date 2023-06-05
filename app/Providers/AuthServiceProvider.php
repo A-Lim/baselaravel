@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Laravel\Passport\Passport;
 // use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 use App\Models\Permission;
 
@@ -35,12 +36,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot() {
         $this->registerPolicies();
-        
+
         Passport::routes();
-        Passport::tokensExpireIn(now()->addSeconds(config('app.token.expiration')));
-        Passport::personalAccessTokensExpireIn(now()->addSeconds(config('app.token.expiration')));
-        Passport::refreshTokensExpireIn(now()->addSeconds(config('app.token.refresh_expiration')));
-        
+        Passport::tokensExpireIn(Carbon::now()->addSeconds(config('app.token.expiration')));
+        Passport::personalAccessTokensExpireIn(Carbon::now()->addSeconds(config('app.token.expiration')));
+        Passport::refreshTokensExpireIn(Carbon::now()->addSeconds(config('app.token.refresh_expiration')));
+
         $permissions = Cache::get('permissions_with_usergroups');
         if ($permissions) {
             foreach ($permissions as $permission) {
@@ -49,6 +50,6 @@ class AuthServiceProvider extends ServiceProvider
                 });
             }
         }
-        
+
     }
 }

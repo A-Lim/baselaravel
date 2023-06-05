@@ -52,10 +52,10 @@ class LoginController extends ApiController {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-        
+
         if ($this->attemptLogin($request)) {
             $this->clearLoginAttempts($request);
-            
+
             // retrieve user with avatar details
             $user = $this->userRepository->find(auth()->id());
             $tokenResult = $user->createToken('accesstoken');
@@ -64,7 +64,7 @@ class LoginController extends ApiController {
             // save device and token details if exists
             if ($request->filled('uuid'))
                 $this->deviceRepository->createOrUpdate($user, $request->only(['uuid', 'token', 'type']));
-            
+
             return $this->responseWithLoginData(200, $tokenResult, $user, $permissions);
         }
 
@@ -79,7 +79,7 @@ class LoginController extends ApiController {
         $socialUser = Socialite::driver('facebook')
             ->stateless()
             ->userFromToken($request->authToken);
-        
+
         $user = $this->userRepository->searchForOne(['email' => $socialUser->email]);
 
         // if user does not exist, register new user
@@ -89,22 +89,26 @@ class LoginController extends ApiController {
                 'name' => $socialUser->name,
             ];
             $user = $this->userRepository->create($user_data);
-    
+
             // assign default usergroup
             $default_usergroups = $this->systemSettingRepository->findByCode('default_usergroups');
-    
+
             if (!empty($default_usergroups->value)) {
                 $userGroupIds = $default_usergroups->value;
                 $activeUserGroupsIds = $this->userGroupRepository->findByIdsWhereActive($userGroupIds)
                     ->pluck('id')
                     ->toArray();
-    
+
                 $user->assignUserGroupsByIds($activeUserGroupIds);
             }
         }
 
         if ($socialUser->avatar_original)
             $file = $this->saveAvatar($user, $socialUser->avatar_original);
+
+        // save device and token details if exists
+        if ($request->filled('uuid'))
+            $this->deviceRepository->createOrUpdate($user, $request->only(['uuid', 'token', 'type']));
 
         $tokenResult = $user->createToken('accesstoken');
         $permissions = $this->userRepository->permissions($user);
@@ -119,7 +123,7 @@ class LoginController extends ApiController {
         // revoke access token
         $accessToken->revoke();
 
-        if ($request->uuid)
+        if ($request->filled('uuid'))
             $this->deviceRepository->delete($user, $request->uuid);
 
         return $this->responseWithMessage(201, "Successfully logged out.");
@@ -136,7 +140,7 @@ class LoginController extends ApiController {
         $file = '/tmp/' . $fileName;
         file_put_contents($file, $contents);
         $uploaded_file = new UploadedFile($file, uniqid(), 'image/jpeg', null, false);
-        
+
         return $this->fileRepository->uploadOne('avatars', $uploaded_file, User::class, $user->id);
     }
 }
