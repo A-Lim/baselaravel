@@ -39,13 +39,13 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(Carbon::now()->addSeconds(config('app.token.refresh_expiration')));
 
         $permissions = Cache::get('permissions_with_usergroups');
-        if ($permissions) {
-            foreach ($permissions as $permission) {
-                Gate::define($permission->code, function($user) use ($permission) {
-                    return $user->hasUserGroup($permission->userGroups);
-                });
-            }
-        }
+        if (!$permissions)
+            return;
 
+        foreach ($permissions as $permission) {
+            Gate::define($permission->code, function($user) use ($permission) {
+                return $user->hasUserGroup($permission->userGroups);
+            });
+        }
     }
 }

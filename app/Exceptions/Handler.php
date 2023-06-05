@@ -44,37 +44,38 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Throwable $exception) {
-        if (request()->wantsJson()) {
-            // get class of exception
-            $class = get_class($exception);
-            $headers = ['Content-Type', 'application/json'];
-            
-            // override exceptions
-            // sends out custom response output
-            switch ($class) {
-                case 'Laravel\Passport\Exceptions\OAuthServerException':
-                    return response()->json(['message' => $exception->getMessage()], 401, $headers);
-                    break;
-                
-                case 'Illuminate\Database\Eloquent\ModelNotFoundException':
-                    $model_name = last(explode('\\', $exception->getModel()));
-                    return response()->json(['message' => 'Resource '.strtolower($model_name).' not found.'], 404, $headers);
-                    break;
-                
-                case 'Illuminate\Auth\Access\AuthorizationException':
-                    return response()->json(['message' => 'You do not have permission to perform this action.'], 403, $headers);
-                    break;
+        if (!request()->wantsJson())
+            return parent::render($request, $exception);
 
-                case 'Illuminate\Routing\Exceptions\InvalidSignatureException':
-                    return response()->json(['message' => 'Invalid signature.'], 403, $headers);
-                    break;
-                
-                case 'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException':
-                    return response()->json(['message' => 'Method not supported for this route.'], 405, $headers);
-                    break;
-            }
+        // get class of exception
+        $class = get_class($exception);
+        $headers = ['Content-Type', 'application/json'];
+
+        // override exceptions
+        // sends out custom response output
+        switch ($class) {
+            case 'Laravel\Passport\Exceptions\OAuthServerException':
+                return response()->json(['message' => $exception->getMessage()], 401, $headers);
+                break;
+
+            case 'Illuminate\Database\Eloquent\ModelNotFoundException':
+                $model_name = last(explode('\\', $exception->getModel()));
+                return response()->json(['message' => 'Resource '.strtolower($model_name).' not found.'], 404, $headers);
+                break;
+
+            case 'Illuminate\Auth\Access\AuthorizationException':
+                return response()->json(['message' => 'You do not have permission to perform this action.'], 403, $headers);
+                break;
+
+            case 'Illuminate\Routing\Exceptions\InvalidSignatureException':
+                return response()->json(['message' => 'Invalid signature.'], 403, $headers);
+                break;
+
+            case 'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException':
+                return response()->json(['message' => 'Method not supported for this route.'], 405, $headers);
+                break;
         }
-        
+
         return parent::render($request, $exception);
     }
 }
