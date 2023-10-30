@@ -9,7 +9,7 @@ class UpdateRequest extends CustomFormRequest {
     public function __construct() {
         parent::__construct();
     }
-    
+
     public function authorize() {
         return true;
     }
@@ -18,7 +18,8 @@ class UpdateRequest extends CustomFormRequest {
         return [
             'name' => 'required|string',
             'gender' => 'required|string',
-            'phone' => 'nullable'
+            'phone' => 'nullable',
+            'date_of_birth' => 'nullable|date|date_format:Y-m-d'
         ];
     }
 }

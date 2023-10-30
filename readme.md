@@ -2,6 +2,11 @@
 
 A basic laravel project with all the common functionalities.
 
+Initial Setup
+```
+php artisan passport:install
+```
+
 
 ### Check for code smells / bugs
 ```

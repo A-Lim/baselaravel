@@ -8,8 +8,8 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         $this->call([
             UsersTableSeeder::class,
-            PermissionsTableSeeder::class,
             UserGroupsTableSeeder::class,
+            PermissionsTableSeeder::class,
             SystemSettingsTableSeeder::class,
             WidgetTypesTableSeeder::class,
             DashboardsTableSeeder::class

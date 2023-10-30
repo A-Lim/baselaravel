@@ -27,8 +27,7 @@ class UserGroupPolicy {
      * @return mixed
      */
     public function viewAny(User $user) {
-        return $user->can('usergroups.viewAny') && 
-            ($user->status == 'active' || $user->status == 'inactive');
+        return $user->hasPermission('usergroups.viewAny');
     }
 
     /**
@@ -39,8 +38,7 @@ class UserGroupPolicy {
      * @return mixed
      */
     public function view(User $user, UserGroup $userGroup) {
-        return $user->can('usergroups.view') &&
-            ($user->status == 'active' || $user->status == 'inactive');
+        return $user->hasPermission('usergroups.view');
     }
 
     /**
@@ -50,8 +48,7 @@ class UserGroupPolicy {
      * @return mixed
      */
     public function create(User $user) {
-        return $user->can('usergroups.create') &&
-            $user->status == 'active';
+        return $user->hasPermission('usergroups.create');
     }
 
     /**
@@ -62,8 +59,7 @@ class UserGroupPolicy {
      * @return mixed
      */
     public function update(User $user, UserGroup $userGroup) {
-        return $user->can('usergroups.update') && 
-            $user->status == 'active';
+        return $user->hasPermission('usergroups.update');
     }
 
     /**
@@ -74,8 +70,7 @@ class UserGroupPolicy {
      * @return mixed
      */
     public function delete(User $user, UserGroup $userGroup) {
-        return $user->can('usergroups.delete') && 
-            $user->status == 'active';
+        return $user->hasPermission('usergroups.delete');
     }
 
     /**

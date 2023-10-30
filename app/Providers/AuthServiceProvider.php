@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
-// use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+
+use App\Models\Permission;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,7 +38,8 @@ class AuthServiceProvider extends ServiceProvider
         Passport::personalAccessTokensExpireIn(Carbon::now()->addSeconds(config('app.token.expiration')));
         Passport::refreshTokensExpireIn(Carbon::now()->addSeconds(config('app.token.refresh_expiration')));
 
-        $permissions = Cache::get('permissions_with_usergroups');
+        $permissions = Permission::permissionUserGroupsCache();
+
         if (!$permissions)
             return;
 

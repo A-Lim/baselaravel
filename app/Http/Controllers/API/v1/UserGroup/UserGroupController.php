@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\UserGroup;
+use App\Models\Permission;
 use App\Repositories\UserGroup\IUserGroupRepository;
 
 use App\Http\Requests\UserGroup\CreateRequest;
@@ -29,11 +30,11 @@ class UserGroupController extends ApiController {
         $exists = $this->userGroupRepository->codeExists($request->code, $request->userGroupId);
         return $this->responseWithData(200, $exists);
     }
-    
+
     public function list(Request $request) {
         if ($request->type != 'formcontrol')
             $this->authorize('viewAny', UserGroup::class);
-        
+
         $userGroups = $this->userGroupRepository->list($request->all(), true);
         return $this->responseWithData(200, $userGroups);
     }
@@ -51,13 +52,15 @@ class UserGroupController extends ApiController {
     public function create(CreateRequest $request) {
         $this->authorize('create', UserGroup::class);
         $userGroup = $this->userGroupRepository->create($request->all());
+        Permission::clearCache();
+
         return $this->responseWithMessageAndData(201, $userGroup, 'User group created.');
     }
 
     public function details(UserGroup $userGroup) {
         $this->authorize('view', $userGroup);
         $userGroup = $this->userGroupRepository->find($userGroup->id);
-        return $this->responseWithData(200, $userGroup); 
+        return $this->responseWithData(200, $userGroup);
     }
 
     public function update(UpdateRequest $request, UserGroup $userGroup) {
@@ -67,24 +70,26 @@ class UserGroupController extends ApiController {
             return $this->responseWithMessage(403, 'Unable to edit this usergroup');
 
         $userGroup = $this->userGroupRepository->update($userGroup, $request->all());
+        Permission::clearCache();
+
         $userGroup->notify(new SyncPermissions());
-        return $this->responseWithMessageAndData(200, $userGroup, 'User group updated.'); 
+        return $this->responseWithMessageAndData(200, $userGroup, 'User group updated.');
     }
 
     public function addUsers(AddUsersRequest $request, UserGroup $userGroup) {
         $this->authorize('update', $userGroup);
         $this->userGroupRepository->addUsers($userGroup, $request->userIds);
-        return $this->responseWithMessage(200, 'Users added.'); 
+        return $this->responseWithMessage(200, 'Users added.');
     }
 
     public function removeUser(Request $request, UserGroup $userGroup, User $user) {
         $this->authorize('update', $userGroup);
 
         if ($userGroup->code == 'superadmin' && $userGroup->users->count() == 1)
-            return $this->responseWithMessage(400, 'There must be at least one user in this usergroup.'); 
+            return $this->responseWithMessage(400, 'There must be at least one user in this usergroup.');
 
         $this->userGroupRepository->removeUser($userGroup, $user);
-        return $this->responseWithMessage(200, 'User removed.'); 
+        return $this->responseWithMessage(200, 'User removed.');
     }
 
     public function delete(UserGroup $userGroup) {

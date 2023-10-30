@@ -26,8 +26,7 @@ class SystemSettingPolicy {
      * @return mixed
      */
     public function viewAny(User $user) {
-        return $user->can('systemsettings.viewAny') &&
-            ($user->status == 'active' || $user->status == 'inactive');
+        return $user->hasPermission('systemsettings.viewAny');
     }
 
     /**
@@ -37,7 +36,6 @@ class SystemSettingPolicy {
      * @return mixed
      */
     public function update(User $user) {
-        return $user->can('systemsettings.update') &&
-            $user->status == 'active';
+        return $user->hasPermission('systemsettings.update');
     }
 }

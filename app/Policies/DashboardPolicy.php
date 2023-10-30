@@ -27,9 +27,7 @@ class DashboardPolicy {
      * @return mixed
      */
     public function viewAny(User $user) {
-        return $user->can('dashboards.view') && 
-            ($user->status == 'active' || 
-            $user->status == 'inactive');
+        return $user->hasPermission('dashboards.view');
     }
 
     /**
@@ -40,9 +38,7 @@ class DashboardPolicy {
      * @return mixed
      */
     public function view(User $user, Dashboard $model) {
-        return $user->can('dashboards.view') && 
-            ($user->status == 'active' || 
-            $user->status == 'inactive');;
+        return $user->hasPermission('dashboards.view');
     }
 
     /**
@@ -52,7 +48,7 @@ class DashboardPolicy {
      * @return mixed
      */
     public function create(User $user) {
-        return $user->can('dashboards.create') && $user->status == 'active';
+        return $user->hasPermission('dashboards.create');
     }
 
     /**
@@ -63,8 +59,7 @@ class DashboardPolicy {
      * @return mixed
      */
     public function update(User $user, Dashboard $model) {
-        return $user->can('dashboards.update') && 
-            ($model->public || $model->created_by == $user->id);
+        return $user->hasPermission('dashboards.update');
     }
 
     /**
@@ -75,8 +70,7 @@ class DashboardPolicy {
      * @return mixed
      */
     public function delete(User $user, Dashboard $model) {
-        return $user->can('dashboards.delete') && 
-            ($model->public || $model->created_by == $user->id);
+        return $user->hasPermission('dashboards.delete');
     }
 
     /**

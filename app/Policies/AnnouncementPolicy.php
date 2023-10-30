@@ -27,9 +27,7 @@ class AnnouncementPolicy {
      * @return mixed
      */
     public function viewAny(User $user) {
-        return $user->can('announcements.view') && 
-            ($user->status == 'active' || 
-            $user->status == 'inactive');
+        return $user->hasPermission('announcements.view');
     }
 
     /**
@@ -40,9 +38,7 @@ class AnnouncementPolicy {
      * @return mixed
      */
     public function view(User $user, Announcement $model) {
-        return $user->can('announcements.view') && 
-            ($user->status == 'active' || 
-            $user->status == 'inactive');;
+        return $user->hasPermission('announcements.view');
     }
 
     /**
@@ -52,7 +48,7 @@ class AnnouncementPolicy {
      * @return mixed
      */
     public function create(User $user) {
-        return $user->can('announcements.create') && $user->status == 'active';
+        return $user->hasPermission('announcements.create');
     }
 
     /**
@@ -63,7 +59,7 @@ class AnnouncementPolicy {
      * @return mixed
      */
     public function update(User $user, Announcement $model) {
-        return $user->can('announcements.update') && $announcement->status == 'active';
+        return $user->hasPermission('announcements.update');
     }
 
     /**
@@ -74,7 +70,7 @@ class AnnouncementPolicy {
      * @return mixed
      */
     public function delete(User $user, Announcement $model) {
-        return $user->can('announcements.delete') && $user->status == 'active';
+        return $user->hasPermission('announcements.delete');
     }
 
     /**

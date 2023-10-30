@@ -102,4 +102,8 @@ class User extends Authenticatable implements Auditable {
     }
 
     /******** Accessors and Mutators ********/
+    public function hasPermission($permission) {
+        return $this->can($permission) &&
+            $this->status == self::STATUS_ACTIVE;
+    }
 }
