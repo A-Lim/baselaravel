@@ -1,10 +1,10 @@
 // https://aka.ms/devcontainer.json
 {
-	"name": "Existing Docker Compose (Extend)",
+	"name": "BaseLaravel Dev Container",
 	"dockerComposeFile": [
-		"../docker-compose.yml"
+		"docker-compose.yml"
 	],
-	"service": "laravel.test",
+	"service": "baselaravel",
 	"workspaceFolder": "/var/www/html",
 	"customizations": {
 		"vscode": {
@@ -12,12 +12,12 @@
                 "felixfbecker.php-intellisense",
                 "rexshi.phpdoc-comment-vscode-plugin",
 				"amiralizadeh9480.laravel-extra-intellisense"
-			],
-			"settings": {}
+			]
 		}
 	},
-	"remoteUser": "sail",
-	"postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true"
+	"forwardPorts": [8000, 8001]
+	// "remoteUser": "sail",
+	// "postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true"
 	// "forwardPorts": [],
 	// "runServices": [],
 	// "shutdownAction": "none",

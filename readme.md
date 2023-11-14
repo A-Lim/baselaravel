@@ -4,7 +4,10 @@ A basic laravel project with all the common functionalities.
 
 Initial Setup
 ```
+php artisan key:generate
+php artisan migrate --seed
 php artisan passport:install
+php artisan storage:link
 ```
 
 
