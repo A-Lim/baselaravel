@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('usergroups', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name', 100);
             $table->string('code', 100)->unique();
             $table->string('status', 20);
             $table->boolean('is_admin')->default(false);
             $table->softDeletes();
-            $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

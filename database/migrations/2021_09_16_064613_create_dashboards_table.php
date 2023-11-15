@@ -18,8 +18,8 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->string('name');
             $table->boolean('public');
-            $table->bigInteger('created_by')->unsigned();
-            $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

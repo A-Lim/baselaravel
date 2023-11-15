@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('api_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('user_id')->nullable();
             $table->string('method', 50);
             $table->text('url');

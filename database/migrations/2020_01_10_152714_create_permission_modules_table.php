@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('permission_modules', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('code')->unique();
             $table->string('name', 100);
             $table->text('description')->nullable();

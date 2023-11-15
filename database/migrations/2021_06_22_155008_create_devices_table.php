@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('type');
             $table->string('uuid')->unique();
             $table->string('token')->unique();

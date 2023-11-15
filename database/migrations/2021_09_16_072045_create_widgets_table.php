@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('widgets', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->bigInteger('dashboard_id')->unsigned();
+            $table->unsignedBigInteger('dashboard_id');
             $table->string('category');
             $table->string('name');
             $table->string('type', 50);

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('widget_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('category');
             $table->string('name');
             $table->string('type', 50);

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notification_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->text('request_data')->nullable();
             $table->text('response_data')->nullable();
             $table->text('status');

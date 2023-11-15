@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('permission_usergroup', function (Blueprint $table) {
-            $table->bigInteger('permission_id')->unsigned();
-            $table->bigInteger('usergroup_id')->unsigned();
+            $table->unsignedBigInteger('permission_id');
+            $table->unsignedBigInteger('usergroup_id');
             $table->foreign('permission_id')
                   ->references('id')
                   ->on('permissions')
