@@ -37,9 +37,6 @@ class UserRepository implements IUserRepository {
         return $permissions;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function list($data, $paginate = false) {
         $query = User::buildQuery($data);
 
@@ -56,9 +53,6 @@ class UserRepository implements IUserRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function count($conditions = null) {
         $query = User::query();
 
@@ -68,40 +62,25 @@ class UserRepository implements IUserRepository {
         return $query->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function find($id) {
         return User::with('avatar')
             ->where('id', $id)
             ->firstOrFail();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findWithUserGroups($id) {
         return User::with(['usergroups', 'avatar'])->where('id', $id)->firstOrFail();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function searchForOne($params) {
         return User::where($params)->first();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($data) {
         $data['password'] = Hash::make($data['password']);
         return User::create($data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update(User $user, $data) {
         if (!empty($data['password']))
             $data['password'] = Hash::make($data['password']);
@@ -117,18 +96,12 @@ class UserRepository implements IUserRepository {
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resetPassword(User $user, $password) {
         $user->password = $password;
         $user->setRememberToken(Str::random(60));
         $user->save();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function saveAvatar(User $user, File $file) {
         $user->avatar()->save($file);
     }

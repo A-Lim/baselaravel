@@ -8,16 +8,10 @@ use App\Models\Dashboard;
 
 class DashboardRepository implements IDashboardRepository {
 
-    /**
-     * {@inheritdoc}
-     */
     public function listWidgetTypes() {
         return WidgetType::all();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function list(User $user) {
         return Dashboard::where(function ($query) use ($user) {
             $query->where('created_by', $user->id)
@@ -27,18 +21,12 @@ class DashboardRepository implements IDashboardRepository {
         ->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function find($id) {
         return Dashboard::with('widgets')
             ->where('id', $id)
             ->firstOrFail();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($data, User $user) {
         $data['created_by'] = $user->id;
 
@@ -52,9 +40,6 @@ class DashboardRepository implements IDashboardRepository {
         return $this->find($dashboard->id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update(Dashboard $dashboard, $data, User $user) {
         $data['updated_by'] = $user->id;
         unset($data['uuid']);

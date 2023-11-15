@@ -9,16 +9,10 @@ use App\Models\ApiLog;
 
 class ApiLogRepository implements IApiLogRepository {
 
-    /**
-     * {@inheritdoc}
-     */
     public function list() {
         
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(Request $request, JsonResponse $response) {
         return ApiLog::create([
             'user_id' => auth('api')->id(),
@@ -33,9 +27,6 @@ class ApiLogRepository implements IApiLogRepository {
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clear_old_logs($days) {
         ApiLog::where('created_at', '<=', Carbon::now()->subDays($days)->toDateTimeString())
             ->delete();

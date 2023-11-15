@@ -10,34 +10,22 @@ use App\Models\SystemSettingCategory;
 
 class SystemSettingRepository implements ISystemSettingRepository {
 
-     /**
-     * {@inheritdoc}
-     */
     public function list() {
         return Cache::rememberForEver(SystemSettingCategory::CACHE_KEY, function() {
             return SystemSettingCategory::with('systemsettings')->get();
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findByCode(string $code) {
         return Cache::rememberForEver(SystemSetting::CACHE_KEY.'_'.$code, function() use ($code) {
             return SystemSetting::where('code', $code)->first();
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findByCodes(array $codes) {
         return SystemSetting::whereIn('code', $codes)->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update(array $data) {
         // https://github.com/laravel/ideas/issues/575
         // update multiple values based on code
@@ -71,12 +59,6 @@ class SystemSettingRepository implements ISystemSettingRepository {
         });
     }
 
-    /**
-     * Clear all cache
-     * 
-     * @param array $codes 
-     * @return void
-     */
     private function clearCaches(array $codes = null) {
         Cache::forget(SystemSettingCategory::CACHE_KEY);
         if (!empty($codes)) {

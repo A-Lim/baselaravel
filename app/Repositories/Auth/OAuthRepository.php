@@ -6,16 +6,10 @@ use Laravel\Passport\RefreshToken;
 
 class OAuthRepository implements IOAuthRepository {
     
-    /**
-     * {@inheritdoc}
-     */
     public function findClient($id) {
         return OAuthClient::find($id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function revokeRefreshToken($accessTokenId) {
         RefreshToken::where('access_token_id', $accessTokenId)->update(['revoked' => true]);
     }

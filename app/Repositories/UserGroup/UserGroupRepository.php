@@ -7,9 +7,7 @@ use App\Models\UserGroup;
 use Carbon\Carbon;
 
 class UserGroupRepository implements IUserGroupRepository {
-    /**
-     * {@inheritdoc}
-     */
+
     public function codeExists($code, $userGroupId = null) {
         $conditions = [['code', '=', $code]];
         if ($userGroupId != null)
@@ -18,9 +16,6 @@ class UserGroupRepository implements IUserGroupRepository {
         return UserGroup::where($conditions)->exists();
     }
 
-     /**
-     * {@inheritdoc}
-     */
     public function list($data, $paginate = false) {
         $limit = isset($data['limit']) ? $data['limit'] : 10;
 
@@ -44,9 +39,6 @@ class UserGroupRepository implements IUserGroupRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listUsers(UserGroup $userGroup, $data, $paginate = false) {
         $query = User::buildQuery($data)
             ->join('user_usergroup', 'user_usergroup.user_id', 'users.id')
@@ -61,9 +53,6 @@ class UserGroupRepository implements IUserGroupRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listNotUsers(UserGroup $userGroup, $data, $paginate = false) {
         $query = User::buildQuery($data)
             ->whereNotIn('id', $userGroup->users->pluck('id')->toArray())
@@ -77,24 +66,15 @@ class UserGroupRepository implements IUserGroupRepository {
         return $query->get();
     }
     
-    /**
-     * {@inheritdoc}
-     */
     public function find($id) {
         return UserGroup::with(['users', 'permissions'])->find($id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findByIdsWhereActive(array $ids) {
         return UserGroup::where('status', UserGroup::STATUS_ACTIVE)
             ->whereIn('id', $ids)->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($data) {
         $data['deleted_at'] = null;
         $data['created_by'] = auth()->id();
@@ -114,9 +94,6 @@ class UserGroupRepository implements IUserGroupRepository {
         return UserGroup::with('permissions')->where('id', $userGroup->id)->first();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update(UserGroup $userGroup, $data) {
         $data['updated_by'] = auth()->id();
 
@@ -136,9 +113,6 @@ class UserGroupRepository implements IUserGroupRepository {
         return $userGroup;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addUsers(UserGroup $userGroup, $user_ids) {
         $attachedIds = $userGroup->users()
             ->whereIn('id', $user_ids)
@@ -148,16 +122,10 @@ class UserGroupRepository implements IUserGroupRepository {
         $userGroup->users()->attach($newIds);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeUser(UserGroup $userGroup, User $user) {
         $userGroup->users()->detach($user->id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function delete(UserGroup $userGroup, $forceDelete = false) {
         if ($forceDelete) {
             $userGroup->forceDelete();

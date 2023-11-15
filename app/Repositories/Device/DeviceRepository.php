@@ -7,9 +7,6 @@ use App\Models\UserGroup;
 
 class DeviceRepository implements IDeviceRepository {
 
-    /**
-     * {@inheritdoc}
-     */
     public function createOrUpdate(User $user, $data) {
         $data['user_id'] = $user->id;
 
@@ -27,16 +24,10 @@ class DeviceRepository implements IDeviceRepository {
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function delete(User $user, $uuid) {
         Device::where('uuid', $uuid)->delete();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTokensForUser(User $user) {
         return Device::where('user_id', $user->id)
             ->select('token')
@@ -44,9 +35,6 @@ class DeviceRepository implements IDeviceRepository {
             ->toArray();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTokensForUserGroup(UserGroup $userGroup) {
         return Device::join('users', 'users.id', '=', 'devices.user_id')
             ->join('user_usergroup', 'user_usergroup.user_id', '=', 'devices.user_id')
@@ -56,10 +44,6 @@ class DeviceRepository implements IDeviceRepository {
             ->toArray();
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
     public function allUserIds() {
         return Device::select('user_id')
             ->distinct('user_id')

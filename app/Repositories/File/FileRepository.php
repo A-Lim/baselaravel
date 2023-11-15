@@ -9,9 +9,7 @@ use App\Models\File;
 use Illuminate\Support\Facades\DB;
 
 class FileRepository implements IFileRepository {
-    /**
-     * {@inheritdoc}
-     */
+    
     public function uploadOne($folder, UploadedFile $fileUpload, $fileableType = null, $fileableId = null) {
         $path = Storage::disk(config('app.file.disk_type'))
             ->putFile($folder, $fileUpload, config('app.file.visibility'));
@@ -28,9 +26,6 @@ class FileRepository implements IFileRepository {
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function uploadMultiple($folder, array $files, $fileableType = null, $fileableId = null) {
         if ($folder == null)
             $folder = 'temp';
@@ -61,9 +56,6 @@ class FileRepository implements IFileRepository {
         return $files;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clear_old_files($days) {
         $query = File::where('created_at', '<=', Carbon::now()->subDays($days)->toDateTimeString())
             ->where('fileable_type', null)

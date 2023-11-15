@@ -7,9 +7,6 @@ use Carbon\Carbon;
 
 class AnnouncementRepository implements IAnnouncementRepository {
 
-    /**
-     * {@inheritdoc}
-     */
     public function list($data, $paginate = false) {
         $limit = isset($data['limit']) ? $data['limit'] : 10;
 
@@ -23,9 +20,6 @@ class AnnouncementRepository implements IAnnouncementRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listMy(User $user, $paginate = false) {
         $limit = isset($data['limit']) ? $data['limit'] : 10;
 
@@ -45,9 +39,6 @@ class AnnouncementRepository implements IAnnouncementRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listMyAndPublished(User $user, $data, $paginate = false) {
         $limit = isset($data['limit']) ? $data['limit'] : 10;
 
@@ -68,9 +59,6 @@ class AnnouncementRepository implements IAnnouncementRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listPendingForPublish(Carbon $scheduled_publish_date) {
         return Announcement::where('status', Announcement::STATUS_PENDING)
             ->where('scheduled_publish_date', $scheduled_publish_date)
@@ -78,16 +66,10 @@ class AnnouncementRepository implements IAnnouncementRepository {
             ->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function find($id) {
         return Announcement::find($id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function count($conditions = null) {
         $query = Announcement::query();
 
@@ -97,18 +79,12 @@ class AnnouncementRepository implements IAnnouncementRepository {
         return $query->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($data) {
         $data = $this->prepareData($data);
         $data['created_by'] = auth()->id();
         return Announcement::create($data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function update(Announcement $announcement, $data) {
         $data = $this->prepareData($data, $announcement);
         $data['updated_by'] = auth()->id();
@@ -118,9 +94,6 @@ class AnnouncementRepository implements IAnnouncementRepository {
         return $announcement;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function delete(Announcement $announcement) {
         $announcement->image->delete();
         $announcement->delete();

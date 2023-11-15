@@ -8,9 +8,6 @@ use App\Models\NotificationLog;
 
 class NotificationRepository implements INotificationRepository {
 
-    /**
-     * {@inheritdoc}
-     */
     public function list(User $user, $data, $paginate = false) {
         $query = Notification::where('user_id', $user->id)
             ->orderBy('id', 'desc');
@@ -23,18 +20,12 @@ class NotificationRepository implements INotificationRepository {
         return $query->get();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countUnread(User $user) {
         return Notification::where('user_id', $user->id)
             ->where('read', false)
             ->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($user_ids, $notification_log_id, $notification_data) {
         $data = [];
         // remove redundant data from payload
@@ -56,33 +47,21 @@ class NotificationRepository implements INotificationRepository {
         Notification::insert($data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function log($data) {
         return NotificationLog::create($data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function read(Notification $notification) {
         $notification->read = true;
         $notification->save();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function markAllAsRead(User $user) {
         Notification::where('user_id', $user->id)
             ->where('read', false)
             ->update(['read' => true]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function delete(Notification $notification) {
         $notification->delete();
     }
