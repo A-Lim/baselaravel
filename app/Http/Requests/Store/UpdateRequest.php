@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Store;
 
 use App\Http\Requests\CustomFormRequest;
 
@@ -9,18 +9,17 @@ class UpdateRequest extends CustomFormRequest {
     public function __construct() {
         parent::__construct();
     }
-
+    
     public function authorize() {
         return true;
     }
 
     public function rules() {
         return [
-            'name' => 'required|string',
-            'gender' => 'nullable|string',
-            'phone' => 'nullable',
-            'date_of_birth' => 'nullable|date|date_format:Y-m-d',
-            'store_ids' => 'nullable|array'
+            'name' => 'required|unique:stores,name,'.$this->store->id.',id,deleted_at,NULL',
+            'phone' => 'nullable|string',
+            'email' => 'nullable|email',
+            'address' => 'nullable|string'
         ];
     }
 }

@@ -13,8 +13,6 @@ interface IUserRepository
 
     public function find($id);
 
-    public function findWithUserGroups($id);
-
     public function searchForOne($params);
 
     public function create($data);

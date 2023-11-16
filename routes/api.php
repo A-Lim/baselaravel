@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function () {
         Route::patch('devices', 'DeviceController@update');
     });
 
-    Route::middleware(['apilogger'])->group(function () {
+    // Route::middleware(['apilogger'])->group(function () {
         /**** User ****/
         Route::namespace('API\v1\User')->group(function () {
             Route::get('users', 'UserController@list');
@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
             Route::get('profile', 'UserController@profile');
             Route::post('users/{user}/reset-password', 'UserController@resetPassword');
             Route::patch('profile', 'UserController@updateProfile');
+            Route::patch('profile/default-store', 'UserController@updateDefaultStore');
             Route::patch('users/{user}', 'UserController@update');
 
             Route::patch('users/{user}/avatar', 'UserController@uploadUserAvatar');
@@ -100,5 +101,12 @@ Route::prefix('v1')->group(function () {
             Route::patch('dashboards/{dashboard}', 'DashboardController@update');
         });
 
-    });
+        /**** Stores ****/
+        Route::namespace('API\v1\Store')->group(function () {
+            Route::get('stores', 'StoreController@list');
+            Route::post('stores', 'StoreController@create');
+            Route::patch('stores/{store}', 'StoreController@update');
+        });
+
+    // });
 });

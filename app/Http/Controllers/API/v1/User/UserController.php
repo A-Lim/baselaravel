@@ -40,6 +40,12 @@ class UserController extends ApiController {
         return $this->responseWithData(200, $user);
     }
 
+    public function updateDefaultStore(Request $request) {
+        $data['default_store_id'] = $request->input('store_id');
+        $this->userRepository->update(auth()->user(), $data);
+       return $this->responseWithMessage(200, 'Default store updated.');
+    }
+
     public function updateProfile(UpdateProfileRequest $request) {
         $authUser = auth()->user();
         $this->authorize('updateProfile', $authUser);
@@ -58,7 +64,8 @@ class UserController extends ApiController {
             $data['password'] = $request->newPassword;
         }
 
-        $user = $this->userRepository->update(auth()->user(), $data);
+        $this->userRepository->update(auth()->user(), $data);
+        $user = $this->userRepository->find(auth()->id());
         $userResource = new UserResource($user);
         return $this->responseWithMessageAndData(200, $userResource, 'Profile updated.');
     }
@@ -94,15 +101,16 @@ class UserController extends ApiController {
 
     public function details(Request $request, User $user) {
         $this->authorize('view', $user);
-        $user = $this->userRepository->findWithUserGroups($user->id);
+        $user = $this->userRepository->find($user->id);
         $userResource = new UserResource($user);
         return $this->responseWithData(200, $userResource);
     }
 
     public function update(UpdateRequest $request, User $user) {
         $this->authorize('update', $user);
-        $user = $this->userRepository->update($user, $request->all());
-        $userResource = new UserResource($user);
+        $this->userRepository->update($user, $request->all());
+        $updatedUser = $this->userRepository->find($user->id);
+        $userResource = new UserResource($updatedUser);
         return $this->responseWithMessageAndData(200, $userResource, 'User updated.');
     }
 

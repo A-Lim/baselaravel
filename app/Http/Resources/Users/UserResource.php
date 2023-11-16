@@ -4,6 +4,7 @@ namespace App\Http\Resources\Users;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\UserGroups\UserGroupCollection;
+use App\Http\Resources\Stores\StoreCollection;
 
 class UserResource extends JsonResource
 {
@@ -24,7 +25,8 @@ class UserResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'email_verified_at' => $this->email_verified_at,
             'status' => $this->status,
-            'usergroups' => new UserGroupCollection($this->usergroups)
+            'usergroups' => new UserGroupCollection($this->usergroups),
+            'stores' => new StoreCollection($this->stores),
         ];
     }
 }

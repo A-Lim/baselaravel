@@ -12,12 +12,30 @@ use App\Notifications\CustomResetPassword;
 use App\Notifications\CustomVerifyEmail;
 use App\Http\Traits\HasUserGroups;
 use App\Http\Traits\HasDevices;
+use App\Http\Traits\HasStores;
 use App\Http\Traits\CustomQuery;
 
 class User extends Authenticatable implements Auditable {
-    use Notifiable, HasApiTokens, HasUserGroups, HasDevices, CustomQuery, \OwenIt\Auditing\Auditable;
+    use 
+        Notifiable,
+        HasApiTokens,
+        HasUserGroups,
+        HasDevices,
+        HasStores,
+        CustomQuery,
+        \OwenIt\Auditing\Auditable;
 
-    protected $fillable = ['name', 'email', 'gender', 'date_of_birth', 'phone', 'password', 'email_verified_at', 'status'];
+    protected $fillable = [
+        'name',
+        'email',
+        'gender',
+        'date_of_birth',
+        'phone',
+        'password',
+        'default_store_id',
+        'email_verified_at',
+        'status'
+    ];
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
     protected $casts = [];
 

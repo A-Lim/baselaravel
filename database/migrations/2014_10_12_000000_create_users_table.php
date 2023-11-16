@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('gender', 20)->nullable();
+            $table->unsignedBigInteger('default_store_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('status', 100);

@@ -5,7 +5,8 @@ use App\Models\UserGroup;
 
 trait HasUserGroups {
     public function userGroups() {
-        return $this->belongsToMany(UserGroup::class, 'user_usergroup', 'user_id', 'usergroup_id');
+        return $this->belongsToMany(UserGroup::class, 'user_usergroup', 'user_id', 'usergroup_id')
+            ->where('usergroups.status', 'active');
     }
     
     public function isAdmin() {

@@ -63,13 +63,17 @@ class UserRepository implements IUserRepository {
     }
 
     public function find($id) {
-        return User::with('avatar')
+        $user = User::with(['avatar'])
             ->where('id', $id)
             ->firstOrFail();
-    }
 
-    public function findWithUserGroups($id) {
-        return User::with(['usergroups', 'avatar'])->where('id', $id)->firstOrFail();
+        if ($user->isAdmin()) {
+            $user->stores = $user->allStores();
+        } else {
+            $user->stores = $user->stores()->get();
+        }
+
+        return $user;
     }
 
     public function searchForOne($params) {
@@ -87,6 +91,9 @@ class UserRepository implements IUserRepository {
 
         if (!empty($data['usergroups']))
             $user->userGroups()->sync($data['usergroups']);
+
+        if (!empty($data['store_ids']))
+            $user->assignStores($data['store_ids']);
 
         if (!empty($data['date_of_birth']))
             $data['date_of_birth'] = Carbon::parse($data['date_of_birth'])->toDateString();
