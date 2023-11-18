@@ -108,5 +108,12 @@ Route::prefix('v1')->group(function () {
             Route::patch('stores/{store}', 'StoreController@update');
         });
 
+        /**** Clients ****/
+        Route::namespace('API\v1\Client')->group(function () {
+            Route::get('clients', 'ClientController@list');
+            Route::post('clients', 'ClientController@create');
+            Route::patch('clients/{client}', 'ClientController@update');
+        });
+
     // });
 });

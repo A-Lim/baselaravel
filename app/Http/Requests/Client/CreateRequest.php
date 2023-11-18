@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests\Client;
 
 use App\Http\Requests\CustomFormRequest;
 
-class UpdateRequest extends CustomFormRequest {
+class CreateRequest extends CustomFormRequest {
 
     public function __construct() {
         parent::__construct();
@@ -16,13 +16,11 @@ class UpdateRequest extends CustomFormRequest {
 
     public function rules() {
         return [
-            'name' => 'required|unique:stores,name,'.$this->store->id.',id,deleted_at,NULL',
+            'name' => 'required',
+            'ssm_no' => 'required|unique:clients,ssm_no',
             'phone' => 'nullable|string',
             'email' => 'nullable|email',
             'address' => 'nullable|string',
-            'quotation_terms' => 'nullable|string',
-            'quotation_agreement' => 'nullable|string',
-            'invoice_terms' => 'nullable|string'
         ];
     }
 }

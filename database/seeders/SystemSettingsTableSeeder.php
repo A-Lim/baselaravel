@@ -22,7 +22,7 @@ class SystemSettingsTableSeeder extends Seeder {
         
         $systemsettings = [
             ['systemsettingcategory_id' => $generalCategory->id, 'name' => 'Company Name', 'code' => 'company_name', 'description' => 'Allow public users to register to site.', 'value' => true, 'created_at' => $now, 'updated_at' => $now],
-            ['systemsettingcategory_id' => $generalCategory->id, 'name' => 'Registration Number', 'code' => 'registration_no', 'description' => '', 'value' => 'none', 'created_at' => $now, 'updated_at' => $now],
+            ['systemsettingcategory_id' => $generalCategory->id, 'name' => 'SSM Number', 'code' => 'ssm_no', 'description' => '', 'value' => 'none', 'created_at' => $now, 'updated_at' => $now],
             ['systemsettingcategory_id' => $generalCategory->id, 'name' => 'Email', 'code' => 'company_email', 'description' => '', 'value' => '', 'created_at' => $now, 'updated_at' => $now],
             ['systemsettingcategory_id' => $generalCategory->id, 'name' => 'Phone', 'code' => 'company_phone', 'description' => '', 'value' => '', 'created_at' => $now, 'updated_at' => $now],
 
