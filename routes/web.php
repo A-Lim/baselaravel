@@ -9,3 +9,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::group(['middleware' => ['web']], function () {
+//     Route::view('/pdf/quotation', 'pdf.quotation');
+// });
+
+Route::get('/', function () {
+    return view('pdfs.quotation');
+});

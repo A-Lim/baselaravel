@@ -115,5 +115,12 @@ Route::prefix('v1')->group(function () {
             Route::patch('clients/{client}', 'ClientController@update');
         });
 
+        /**** Quotations ****/
+        Route::namespace('API\v1\Quotation')->group(function () {
+            Route::get('quotations/pdf', 'QuotationController@pdf');
+            Route::post('quotations', 'QuotationController@create');
+            Route::post('quotations/{quotation}', 'QuotationController@createRevision');
+        });
+
     // });
 });

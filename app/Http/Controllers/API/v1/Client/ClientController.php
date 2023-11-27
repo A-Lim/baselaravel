@@ -24,12 +24,12 @@ class ClientController extends ApiController {
     }
 
     public function create(CreateRequest $request, Client $client) {
-        $this->clientRepository->create($request->all());
-        return $this->responseWithMessage(200, 'Client created.');
+        $client = $this->clientRepository->create($request->all());
+        return $this->responseWithMessageAndData(201, $client, 'Client created.');
     }
 
     public function update(UpdateRequest $request, Client $client) {
-        $this->clientRepository->update($client, $request->all());
-        return $this->responseWithMessage(200, 'Client updated.');
+        $client = $this->clientRepository->update($client, $request->all());
+        return $this->responseWithMessage(200, $client, 'Client updated.');
     }
 }

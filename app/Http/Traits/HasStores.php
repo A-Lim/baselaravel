@@ -13,6 +13,10 @@ trait HasStores {
         return Store::where('deleted_at', null)->get();
     }
 
+    public function hasStore($store_id) {
+        return $this->stores->contains('id', $store_id);
+    }
+
     public function assignStores($store_ids) {
         if (in_array('all', $store_ids)) {
             $all_store_ids = Store::select('id')->get()->pluck('id');

@@ -24,7 +24,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('systemsettingcategory_id')
-                ->references('id')->on('systemsettingcategories')
+                ->references('id')
+                ->on('systemsettingcategories')
                 ->onDelete('cascade');
         });
     }

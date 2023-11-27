@@ -20,9 +20,9 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'users', 'name' => 'Users', 'description' => 'User module', 'is_active' => '1'],
             ['code' => 'usergroups', 'name' => 'User Groups', 'description' => 'User Groups module', 'is_active' => '1'],
             ['code' => 'systemsettings', 'name' => 'System Settings', 'description' => 'System Settings module', 'is_active' => '1'],
-            ['code' => 'apilogs', 'name' => 'Api Logs', 'description' => 'Api logs module', 'is_active' => '1'],
-            ['code' => 'announcements', 'name' => 'Announcements', 'description' => 'Announcements module', 'is_active' => '1'],
-            ['code' => 'dashboards', 'name' => 'Dashboards', 'description' => 'Dashboards module', 'is_active' => '1'],
+            ['code' => 'stores', 'name' => 'Stores', 'description' => 'Store module', 'is_active' => '1'],
+            ['code' => 'clients', 'name' => 'Clients', 'description' => 'Client module', 'is_active' => '1'],
+            ['code' => 'quotations', 'name' => 'Quotations', 'description' => 'Quotation module', 'is_active' => '1'],
         ];
 
         $permissions = [
@@ -43,20 +43,25 @@ class PermissionsTableSeeder extends Seeder {
             ['permission_module_id' => '3', 'code' => 'systemsettings.general.view', 'name' => 'View General System Settings', 'description' => ''],
             ['permission_module_id' => '3', 'code' => 'systemsettings.auth.view', 'name' => 'View Auth System Settings', 'description' => ''],
             ['permission_module_id' => '3', 'code' => 'systemsettings.update', 'name' => 'Update System Settings', 'description' => ''],
-            // apilogs
-            ['permission_module_id' => '4', 'code' => 'apilogs.viewAny', 'name' => 'View Any Api Logs', 'description' => ''],
-            // announcements
-            ['permission_module_id' => '5', 'code' => 'announcements.view', 'name' => 'View Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.viewAny', 'name' => 'View Any Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.create', 'name' => 'Create Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.update', 'name' => 'Update Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.delete', 'name' => 'Delete Announcements', 'description' => ''],
-            // dashboards
-            ['permission_module_id' => '6', 'code' => 'dashboards.view', 'name' => 'View Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.viewAny', 'name' => 'View Any Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.create', 'name' => 'Create Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.update', 'name' => 'Update Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.delete', 'name' => 'Delete Dashboards', 'description' => ''],
+            // stores
+            ['permission_module_id' => '4', 'code' => 'stores.view', 'name' => 'View Store', 'description' => ''],
+            ['permission_module_id' => '4', 'code' => 'stores.viewAny', 'name' => 'View Any Stores', 'description' => ''],
+            ['permission_module_id' => '4', 'code' => 'stores.create', 'name' => 'Create Stores', 'description' => ''],
+            ['permission_module_id' => '4', 'code' => 'stores.update', 'name' => 'Update Stores', 'description' => ''],
+            ['permission_module_id' => '4', 'code' => 'stores.delete', 'name' => 'Delete Stores', 'description' => ''],
+            // client
+            ['permission_module_id' => '5', 'code' => 'clients.view', 'name' => 'View Client', 'description' => ''],
+            ['permission_module_id' => '5', 'code' => 'clients.viewAny', 'name' => 'View Any Clients', 'description' => ''],
+            ['permission_module_id' => '5', 'code' => 'clients.create', 'name' => 'Create Clients', 'description' => ''],
+            ['permission_module_id' => '5', 'code' => 'clients.update', 'name' => 'Update Clients', 'description' => ''],
+            ['permission_module_id' => '5', 'code' => 'clients.delete', 'name' => 'Delete Clients', 'description' => ''],
+            // quotation
+            ['permission_module_id' => '6', 'code' => 'quotations.view', 'name' => 'View Quotation', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'quotations.viewAny', 'name' => 'View Any Quotations', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'quotations.create', 'name' => 'Create Quotations', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'quotations.createRevision', 'name' => 'Create Quotation Revision', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'quotations.update', 'name' => 'Update Quotations', 'description' => ''],
+            ['permission_module_id' => '6', 'code' => 'quotations.delete', 'name' => 'Delete Quotations', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);

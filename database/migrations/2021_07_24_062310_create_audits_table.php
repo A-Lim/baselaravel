@@ -26,8 +26,9 @@ return new class extends Migration
             $table->string('user_agent', 1023)->nullable();
             $table->string('tags')->nullable();
             $table->timestamps();
-
-            $table->index(['user_id', 'user_type']);
+            
+            $table->index('user_id');
+            $table->index('user_type');
         });
     }
 
