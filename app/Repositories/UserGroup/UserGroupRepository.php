@@ -82,14 +82,6 @@ class UserGroupRepository implements IUserGroupRepository {
             ['code' => $data['code']],
             $data
         );
-
-        // if user is admin, dont save permissions, cause it's gonna be full access
-        // save permissions if not admin
-        if ($data['is_admin'] == false && !empty($data['permissions'])) 
-            $userGroup->givePermissions($data['permissions']);
-        
-        if (!empty($data['userIds']))
-            $userGroup->users()->sync($data['userIds']);
         
         return UserGroup::with('permissions')->where('id', $userGroup->id)->first();
     }
@@ -100,13 +92,8 @@ class UserGroupRepository implements IUserGroupRepository {
         if (!empty($data['code']))
             unset($data['code']);
         
-        // if user is admin delete all stored permissions, cause it's going to be full access
-        if (isset($data['is_admin']) && $data['is_admin'] == true) {
-            $userGroup->permissions()->delete();
-        } else {
-            if (isset($data['permissions']) && !empty($data['permissions']))
-                $userGroup->givePermissions($data['permissions']);
-        }
+        if (isset($data['permissions']) && !empty($data['permissions']))
+            $userGroup->givePermissions($data['permissions']);
 
         $userGroup->fill($data);
         $userGroup->save();
