@@ -18,7 +18,7 @@ class UpdateProfileRequest extends CustomFormRequest {
         return [
             'name' => 'required|string',
             'phone' => 'nullable',
-            'gender' => 'required|string',
+            'gender' => 'nullable|string',
             'date_of_birth' => 'nullable|date_format:Y-m-d',
             'oldPassword' => 'nullable|string',
             'newPassword' => 'required_with:oldPassword|confirmed',

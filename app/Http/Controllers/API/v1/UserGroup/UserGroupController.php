@@ -59,7 +59,7 @@ class UserGroupController extends ApiController {
 
     public function details(UserGroup $userGroup) {
         $this->authorize('view', $userGroup);
-        $userGroup = $this->userGroupRepository->find($userGroup->id);
+        $userGroup = $this->userGroupRepository->find($userGroup->id, ['permissions']);
         return $this->responseWithData(200, $userGroup);
     }
 

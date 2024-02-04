@@ -14,7 +14,7 @@ interface IUserGroupRepository
 
     public function listNotUsers(UserGroup $userGroup, $data, $paginate = false);
 
-    public function find($id);
+    public function find($id, $linkedResource = []);
 
     public function findByIdsWhereActive(array $ids);
 
