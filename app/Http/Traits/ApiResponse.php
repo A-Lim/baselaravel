@@ -41,24 +41,12 @@ trait ApiResponse {
             ->json(['error_code' => $error_code, 'message' => $message], $statusCode, $this->headers);
     }
 
-    public function responseWithToken($statusCode, $token) {
-        $data = [
-            'tokenType' => $token->token_type,
-            'expiresIn' => $token->expires_in,
-            'accessToken' => $token->access_token,
-            'refreshToken' => $token->refresh_token,
-        ];
-        return response()
-            ->json(['data' => $data], $statusCode, $this->headers);
-    }
-
     public function responseWithLoginData($statusCode, $token, $user, $permissions) {
-        $createdAt = new Carbon($token->token->created_at);
         $expiresAt = new Carbon($token->token->expires_at);
 
         $data = [
             'tokenType' => 'Bearer',
-            'expiresIn' => $expiresAt->diffInSeconds($createdAt),
+            'expiresAt' => $expiresAt,
             'accessToken' => $token->accessToken,
             'user' => $user,
             'permissions' => $permissions

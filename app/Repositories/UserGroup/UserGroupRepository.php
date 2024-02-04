@@ -66,8 +66,8 @@ class UserGroupRepository implements IUserGroupRepository {
         return $query->get();
     }
     
-    public function find($id) {
-        return UserGroup::with(['users', 'permissions'])->find($id);
+    public function find($id, $linkedResource = []) {
+        return UserGroup::with($linkedResource)->find($id);
     }
 
     public function findByIdsWhereActive(array $ids) {
@@ -82,6 +82,9 @@ class UserGroupRepository implements IUserGroupRepository {
             ['code' => $data['code']],
             $data
         );
+
+        if (isset($data['permissions']) && !empty($data['permissions']))
+            $userGroup->givePermissions($data['permissions']);
         
         return UserGroup::with('permissions')->where('id', $userGroup->id)->first();
     }
