@@ -19,7 +19,7 @@ class LoginControllerApiTest extends ApiBaseTestCase {
         $response->assertJsonStructure([
             'data' => [
                 'tokenType',
-                'expiresIn',
+                'expiresAt',
                 'accessToken',
                 'user'
             ]
