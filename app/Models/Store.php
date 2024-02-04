@@ -14,7 +14,7 @@ class Store extends Model implements Auditable {
         'name',
         'phone',
         'email',
-        'address',
+        'address', 
         'quotation_terms',
         'quotation_agreement',
         'invoice_terms',
