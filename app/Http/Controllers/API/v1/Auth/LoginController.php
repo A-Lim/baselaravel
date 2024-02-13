@@ -55,13 +55,12 @@ class LoginController extends ApiController {
             // retrieve user with avatar details
             $user = $this->userRepository->find(auth()->id());
             $tokenResult = $user->createToken('accesstoken');
-            $permissions = $this->userRepository->permissions($user);
 
             // save device and token details if exists
             if ($request->filled('uuid'))
                 $this->deviceRepository->createOrUpdate($user, $request->only(['uuid', 'token', 'type']));
 
-            return $this->responseWithLoginData(200, $tokenResult, $user, $permissions);
+            return $this->responseWithLoginData(200, $tokenResult, $user);
         }
 
         // if unsuccessful, increase login attempt count
