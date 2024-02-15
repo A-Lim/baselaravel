@@ -23,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class,
         \App\Models\SystemSetting::class => \App\Policies\SystemSettingPolicy::class,
         \App\Models\Announcement::class => \App\Policies\AnnouncementPolicy::class,
-        \App\Models\Dashboard::class => \App\Policies\DashboardPolicy::class
+        \App\Models\Dashboard::class => \App\Policies\DashboardPolicy::class,
+        \App\Models\Customer::class => \App\Policies\CustomerPolicy::class
     ];
 
     /**

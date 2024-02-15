@@ -90,6 +90,16 @@ Route::prefix('v1')->group(function () {
             Route::delete('announcements/{announcement}', 'AnnouncementController@delete');
         });
 
+        /**** Customers ****/
+        Route::namespace('API\v1\Customer')->group(function () {
+            Route::get('customers', 'CustomerController@list');
+            Route::get('customers/{customer}', 'CustomerController@details');
+            Route::post('customers', 'CustomerController@create');
+            Route::post('customers/bulk', 'CustomerController@bulkCreate');
+            Route::patch('customers/{customer}', 'CustomerController@update');
+            Route::delete('customers/{customer}', 'CustomerController@delete');
+        });
+
         /**** Dashboards ****/
         Route::namespace('API\v1\Dashboard')->group(function () {
             Route::get('widget-types', 'DashboardController@listWidgetTypes');
