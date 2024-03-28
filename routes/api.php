@@ -99,5 +99,15 @@ Route::prefix('v1')->group(function () {
             Route::patch('customers/{customer}', 'CustomerController@update');
             Route::delete('customers/{customer}', 'CustomerController@delete');
         });
+
+        /**** Packages ****/
+        Route::namespace('API\v1\Package')->group(function () {
+            Route::get('packages', 'PackageController@list');
+            Route::get('packages/{package}', 'PackageController@details');
+            Route::post('packages', 'PackageController@create');
+            Route::post('packages/bulk', 'PackageController@bulkCreate');
+            Route::patch('packages/{package}', 'PackageController@update');
+            Route::delete('packages/{package}', 'PackageController@delete');
+        });
     });
 });

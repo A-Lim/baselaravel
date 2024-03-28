@@ -23,6 +23,7 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'apilogs', 'name' => 'Api Logs', 'description' => 'Api logs module', 'is_active' => '1'],
             ['code' => 'announcements', 'name' => 'Announcements', 'description' => 'Announcements module', 'is_active' => '1'],
             ['code' => 'customers', 'name' => 'Customers', 'description' => 'Customers module', 'is_active' => '1'],
+            ['code' => 'packages', 'name' => 'Packages', 'description' => 'Packages module', 'is_active' => '1'],
         ];
 
         $permissions = [
@@ -46,17 +47,23 @@ class PermissionsTableSeeder extends Seeder {
             // apilogs
             ['permission_module_id' => 4, 'code' => 'apilogs.viewAny', 'name' => 'View Any Api Logs', 'description' => ''],
             // announcements
-            ['permission_module_id' => 5, 'code' => 'announcements.view', 'name' => 'View Announcements', 'description' => ''],
+            ['permission_module_id' => 5, 'code' => 'announcements.view', 'name' => 'View Announcement', 'description' => ''],
             ['permission_module_id' => 5, 'code' => 'announcements.viewAny', 'name' => 'View Any Announcements', 'description' => ''],
             ['permission_module_id' => 5, 'code' => 'announcements.create', 'name' => 'Create Announcements', 'description' => ''],
             ['permission_module_id' => 5, 'code' => 'announcements.update', 'name' => 'Update Announcements', 'description' => ''],
             ['permission_module_id' => 5, 'code' => 'announcements.delete', 'name' => 'Delete Announcements', 'description' => ''],
             // customers
-            ['permission_module_id' => 6, 'code' => 'customers.view', 'name' => 'View Customers', 'description' => ''],
+            ['permission_module_id' => 6, 'code' => 'customers.view', 'name' => 'View Customer', 'description' => ''],
             ['permission_module_id' => 6, 'code' => 'customers.viewAny', 'name' => 'View Any Customers', 'description' => ''],
             ['permission_module_id' => 6, 'code' => 'customers.create', 'name' => 'Create Customers', 'description' => ''],
             ['permission_module_id' => 6, 'code' => 'customers.update', 'name' => 'Update Customers', 'description' => ''],
             ['permission_module_id' => 6, 'code' => 'customers.delete', 'name' => 'Delete Customers', 'description' => ''],
+            // packages
+            ['permission_module_id' => 7, 'code' => 'packages.view', 'name' => 'View Package', 'description' => ''],
+            ['permission_module_id' => 7, 'code' => 'packages.viewAny', 'name' => 'View Any Packages', 'description' => ''],
+            ['permission_module_id' => 7, 'code' => 'packages.create', 'name' => 'Create Packages', 'description' => ''],
+            ['permission_module_id' => 7, 'code' => 'packages.update', 'name' => 'Update Packages', 'description' => ''],
+            ['permission_module_id' => 7, 'code' => 'packages.delete', 'name' => 'Delete Packages', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);

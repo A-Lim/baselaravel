@@ -16,5 +16,6 @@ class RepositoryServiceProvider extends ServiceProvider {
         $this->app->bind(\App\Repositories\Announcement\IAnnouncementRepository::class, \App\Repositories\Announcement\AnnouncementRepository::class);
         $this->app->bind(\App\Repositories\ApiLog\IApiLogRepository::class, \App\Repositories\ApiLog\ApiLogRepository::class);
         $this->app->bind(\App\Repositories\Customer\ICustomerRepository::class, \App\Repositories\Customer\CustomerRepository::class);
+        $this->app->bind(\App\Repositories\Package\IPackageRepository::class, \App\Repositories\Package\PackageRepository::class);
     }
 }
