@@ -22,48 +22,41 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'systemsettings', 'name' => 'System Settings', 'description' => 'System Settings module', 'is_active' => '1'],
             ['code' => 'apilogs', 'name' => 'Api Logs', 'description' => 'Api logs module', 'is_active' => '1'],
             ['code' => 'announcements', 'name' => 'Announcements', 'description' => 'Announcements module', 'is_active' => '1'],
-            ['code' => 'dashboards', 'name' => 'Dashboards', 'description' => 'Dashboards module', 'is_active' => '1'],
-            ['code' => 'contacts', 'name' => 'Contacts', 'description' => 'Contacts module', 'is_active' => '1'],
+            ['code' => 'customers', 'name' => 'Customers', 'description' => 'Customers module', 'is_active' => '1'],
         ];
 
         $permissions = [
             // users
-            ['permission_module_id' => '1', 'code' => 'users.view', 'name' => 'View User', 'description' => ''],
-            ['permission_module_id' => '1', 'code' => 'users.viewAny', 'name' => 'View Any Users', 'description' => ''],
-            ['permission_module_id' => '1', 'code' => 'users.create', 'name' => 'Create Users', 'description' => ''],
-            ['permission_module_id' => '1', 'code' => 'users.update', 'name' => 'Update Users', 'description' => ''],
-            ['permission_module_id' => '1', 'code' => 'users.delete', 'name' => 'Delete Users', 'description' => ''],
+            ['permission_module_id' => 1, 'code' => 'users.view', 'name' => 'View User', 'description' => ''],
+            ['permission_module_id' => 1, 'code' => 'users.viewAny', 'name' => 'View Any Users', 'description' => ''],
+            ['permission_module_id' => 1, 'code' => 'users.create', 'name' => 'Create Users', 'description' => ''],
+            ['permission_module_id' => 1, 'code' => 'users.update', 'name' => 'Update Users', 'description' => ''],
+            ['permission_module_id' => 1, 'code' => 'users.delete', 'name' => 'Delete Users', 'description' => ''],
             // usergroups
-            ['permission_module_id' => '2', 'code' => 'usergroups.view', 'name' => 'View User Group', 'description' => ''],
-            ['permission_module_id' => '2', 'code' => 'usergroups.viewAny', 'name' => 'View Any User Groups', 'description' => ''],
-            ['permission_module_id' => '2', 'code' => 'usergroups.create', 'name' => 'Create User Groups', 'description' => ''],
-            ['permission_module_id' => '2', 'code' => 'usergroups.update', 'name' => 'Update User Groups', 'description' => ''],
-            ['permission_module_id' => '2', 'code' => 'usergroups.delete', 'name' => 'Delete User Groups', 'description' => ''],
+            ['permission_module_id' => 2, 'code' => 'usergroups.view', 'name' => 'View User Group', 'description' => ''],
+            ['permission_module_id' => 2, 'code' => 'usergroups.viewAny', 'name' => 'View Any User Groups', 'description' => ''],
+            ['permission_module_id' => 2, 'code' => 'usergroups.create', 'name' => 'Create User Groups', 'description' => ''],
+            ['permission_module_id' => 2, 'code' => 'usergroups.update', 'name' => 'Update User Groups', 'description' => ''],
+            ['permission_module_id' => 2, 'code' => 'usergroups.delete', 'name' => 'Delete User Groups', 'description' => ''],
             // systemsettings
-            ['permission_module_id' => '3', 'code' => 'systemsettings.viewAny', 'name' => 'View Any System Settings', 'description' => ''],
-            ['permission_module_id' => '3', 'code' => 'systemsettings.general.view', 'name' => 'View General System Settings', 'description' => ''],
-            ['permission_module_id' => '3', 'code' => 'systemsettings.auth.view', 'name' => 'View Auth System Settings', 'description' => ''],
-            ['permission_module_id' => '3', 'code' => 'systemsettings.update', 'name' => 'Update System Settings', 'description' => ''],
+            ['permission_module_id' => 3, 'code' => 'systemsettings.viewAny', 'name' => 'View Any System Settings', 'description' => ''],
+            ['permission_module_id' => 3, 'code' => 'systemsettings.general.view', 'name' => 'View General System Settings', 'description' => ''],
+            ['permission_module_id' => 3, 'code' => 'systemsettings.auth.view', 'name' => 'View Auth System Settings', 'description' => ''],
+            ['permission_module_id' => 3, 'code' => 'systemsettings.update', 'name' => 'Update System Settings', 'description' => ''],
             // apilogs
-            ['permission_module_id' => '4', 'code' => 'apilogs.viewAny', 'name' => 'View Any Api Logs', 'description' => ''],
+            ['permission_module_id' => 4, 'code' => 'apilogs.viewAny', 'name' => 'View Any Api Logs', 'description' => ''],
             // announcements
-            ['permission_module_id' => '5', 'code' => 'announcements.view', 'name' => 'View Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.viewAny', 'name' => 'View Any Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.create', 'name' => 'Create Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.update', 'name' => 'Update Announcements', 'description' => ''],
-            ['permission_module_id' => '5', 'code' => 'announcements.delete', 'name' => 'Delete Announcements', 'description' => ''],
-            // dashboards
-            ['permission_module_id' => '6', 'code' => 'dashboards.view', 'name' => 'View Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.viewAny', 'name' => 'View Any Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.create', 'name' => 'Create Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.update', 'name' => 'Update Dashboards', 'description' => ''],
-            ['permission_module_id' => '6', 'code' => 'dashboards.delete', 'name' => 'Delete Dashboards', 'description' => ''],
-            // contacts
-            ['permission_module_id' => '7', 'code' => 'contacts.view', 'name' => 'View Contacts', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'contacts.viewAny', 'name' => 'View Any Contacts', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'contacts.create', 'name' => 'Create Contacts', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'contacts.update', 'name' => 'Update Contacts', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'contacts.delete', 'name' => 'Delete Contacts', 'description' => ''],
+            ['permission_module_id' => 5, 'code' => 'announcements.view', 'name' => 'View Announcements', 'description' => ''],
+            ['permission_module_id' => 5, 'code' => 'announcements.viewAny', 'name' => 'View Any Announcements', 'description' => ''],
+            ['permission_module_id' => 5, 'code' => 'announcements.create', 'name' => 'Create Announcements', 'description' => ''],
+            ['permission_module_id' => 5, 'code' => 'announcements.update', 'name' => 'Update Announcements', 'description' => ''],
+            ['permission_module_id' => 5, 'code' => 'announcements.delete', 'name' => 'Delete Announcements', 'description' => ''],
+            // customers
+            ['permission_module_id' => 6, 'code' => 'customers.view', 'name' => 'View Customers', 'description' => ''],
+            ['permission_module_id' => 6, 'code' => 'customers.viewAny', 'name' => 'View Any Customers', 'description' => ''],
+            ['permission_module_id' => 6, 'code' => 'customers.create', 'name' => 'Create Customers', 'description' => ''],
+            ['permission_module_id' => 6, 'code' => 'customers.update', 'name' => 'Update Customers', 'description' => ''],
+            ['permission_module_id' => 6, 'code' => 'customers.delete', 'name' => 'Delete Customers', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);

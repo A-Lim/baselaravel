@@ -19,6 +19,7 @@ class BulkCreateRequest extends CustomFormRequest {
             '*.name' => 'required|string',
             '*.phone' => 'nullable|string',
             '*.email' => 'nullable|email',
+            '*.remarks' => 'nullable|string',
         ];
     }
 }

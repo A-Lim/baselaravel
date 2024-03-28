@@ -10,6 +10,6 @@ class Customer extends Model implements Auditable
 {
     use CustomQuery, \OwenIt\Auditing\Auditable;
 
-    protected $fillable = ['name', 'phone', 'email', 'remark', 'created_by', 'updated_by'];
+    protected $fillable = ['name', 'phone', 'email', 'remarks', 'created_by', 'updated_by'];
     public static $queryable = ['name', 'phone', 'email'];
 }
