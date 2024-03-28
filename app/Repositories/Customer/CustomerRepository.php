@@ -37,6 +37,7 @@ class CustomerRepository implements ICustomerRepository {
                 'name' => $row['name'],
                 'phone' => $row['phone'],
                 'email' => $row['email'],
+                'remarks' => $row['remarks'],
                 'created_at' => $now,
                 'updated_at' => $now,
                 'created_by' => $authorId,
