@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories\Customer;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
 use Carbon\Carbon;
 
@@ -43,17 +42,8 @@ class CustomerRepository implements ICustomerRepository {
                 'created_by' => $authorId,
             ]);
         }
-
-        DB::beginTransaction();
-            $lastId = Customer::orderByDesc('id')->first()->id;
-
-            Customer::insert($bulkInsert);
-            
-            $insertedIds = [];
-            for($i = 1; $i <= count($bulkInsert); $i++)
-               array_push($insertedIds, $lastId+$i);
-          
-        DB::commit();
+        
+        Customer::insert($bulkInsert);
     }
 
     public function update(Customer $customer, $data) {

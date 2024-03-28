@@ -23,7 +23,7 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'apilogs', 'name' => 'Api Logs', 'description' => 'Api logs module', 'is_active' => '1'],
             ['code' => 'announcements', 'name' => 'Announcements', 'description' => 'Announcements module', 'is_active' => '1'],
             ['code' => 'dashboards', 'name' => 'Dashboards', 'description' => 'Dashboards module', 'is_active' => '1'],
-            ['code' => 'customers', 'name' => 'Customers', 'description' => 'Customers module', 'is_active' => '1'],
+            ['code' => 'contacts', 'name' => 'Contacts', 'description' => 'Contacts module', 'is_active' => '1'],
         ];
 
         $permissions = [
@@ -58,12 +58,12 @@ class PermissionsTableSeeder extends Seeder {
             ['permission_module_id' => '6', 'code' => 'dashboards.create', 'name' => 'Create Dashboards', 'description' => ''],
             ['permission_module_id' => '6', 'code' => 'dashboards.update', 'name' => 'Update Dashboards', 'description' => ''],
             ['permission_module_id' => '6', 'code' => 'dashboards.delete', 'name' => 'Delete Dashboards', 'description' => ''],
-            // customers
-            ['permission_module_id' => '7', 'code' => 'customers.view', 'name' => 'View Customers', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'customers.viewAny', 'name' => 'View Any Customers', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'customers.create', 'name' => 'Create Customers', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'customers.update', 'name' => 'Update Customers', 'description' => ''],
-            ['permission_module_id' => '7', 'code' => 'customers.delete', 'name' => 'Delete Customers', 'description' => ''],
+            // contacts
+            ['permission_module_id' => '7', 'code' => 'contacts.view', 'name' => 'View Contacts', 'description' => ''],
+            ['permission_module_id' => '7', 'code' => 'contacts.viewAny', 'name' => 'View Any Contacts', 'description' => ''],
+            ['permission_module_id' => '7', 'code' => 'contacts.create', 'name' => 'Create Contacts', 'description' => ''],
+            ['permission_module_id' => '7', 'code' => 'contacts.update', 'name' => 'Update Contacts', 'description' => ''],
+            ['permission_module_id' => '7', 'code' => 'contacts.delete', 'name' => 'Delete Contacts', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);

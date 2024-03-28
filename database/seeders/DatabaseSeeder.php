@@ -11,8 +11,6 @@ class DatabaseSeeder extends Seeder {
             UserGroupsTableSeeder::class,
             PermissionsTableSeeder::class,
             SystemSettingsTableSeeder::class,
-            WidgetTypesTableSeeder::class,
-            DashboardsTableSeeder::class
         ]);
     }
 }

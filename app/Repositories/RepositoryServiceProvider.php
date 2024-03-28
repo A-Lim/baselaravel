@@ -14,7 +14,6 @@ class RepositoryServiceProvider extends ServiceProvider {
         $this->app->bind(\App\Repositories\Permission\IPermissionRepository::class, \App\Repositories\Permission\PermissionRepository::class);
         $this->app->bind(\App\Repositories\Notification\INotificationRepository::class, \App\Repositories\Notification\NotificationRepository::class);
         $this->app->bind(\App\Repositories\Announcement\IAnnouncementRepository::class, \App\Repositories\Announcement\AnnouncementRepository::class);
-        $this->app->bind(\App\Repositories\Dashboard\IDashboardRepository::class, \App\Repositories\Dashboard\DashboardRepository::class);
         $this->app->bind(\App\Repositories\ApiLog\IApiLogRepository::class, \App\Repositories\ApiLog\ApiLogRepository::class);
         $this->app->bind(\App\Repositories\Customer\ICustomerRepository::class, \App\Repositories\Customer\CustomerRepository::class);
     }

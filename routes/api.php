@@ -99,16 +99,5 @@ Route::prefix('v1')->group(function () {
             Route::patch('customers/{customer}', 'CustomerController@update');
             Route::delete('customers/{customer}', 'CustomerController@delete');
         });
-
-        /**** Dashboards ****/
-        Route::namespace('API\v1\Dashboard')->group(function () {
-            Route::get('widget-types', 'DashboardController@listWidgetTypes');
-
-            Route::get('dashboards', 'DashboardController@list');
-            Route::get('dashboards/{dashboard}/data', 'DashboardController@data');
-            Route::post('dashboards', 'DashboardController@create');
-            Route::patch('dashboards/{dashboard}', 'DashboardController@update');
-        });
-
     });
 });
