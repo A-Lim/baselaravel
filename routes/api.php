@@ -98,16 +98,32 @@ Route::prefix('v1')->group(function () {
             Route::post('customers/bulk', 'CustomerController@bulkCreate');
             Route::patch('customers/{customer}', 'CustomerController@update');
             Route::delete('customers/{customer}', 'CustomerController@delete');
+
+            Route::get('customers/{customer}/packages', 'CustomerController@packages');
+            Route::post('customers/{customer}/packages/purchase', 'CustomerController@purchasePackage');
+            Route::post('customers/{customer}/packages/bulk-purchase', 'CustomerController@bulkPurchasePackage');
+
+            Route::get('customers/{customer}/transactions', 'CustomerController@transactions');
         });
 
         /**** Packages ****/
         Route::namespace('API\v1\Package')->group(function () {
             Route::get('packages', 'PackageController@list');
+            Route::get('packages/all', 'PackageController@listAll');
             Route::get('packages/{package}', 'PackageController@details');
             Route::post('packages', 'PackageController@create');
             Route::post('packages/bulk', 'PackageController@bulkCreate');
             Route::patch('packages/{package}', 'PackageController@update');
             Route::delete('packages/{package}', 'PackageController@delete');
+        });
+
+        /**** Packages ****/
+        Route::namespace('API\v1\Transaction')->group(function () {
+            // Route::get('transactions', 'TransactionController@list');
+            // Route::get('transactions/{transaction}', 'TransactionController@details');
+            Route::post('transactions', 'TransactionController@create');
+            // Route::patch('transactions/{transaction}', 'TransactionController@update');
+            // Route::delete('transactions/{transaction}', 'TransactionController@delete');
         });
     });
 });

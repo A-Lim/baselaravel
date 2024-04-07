@@ -12,4 +12,8 @@ class Customer extends Model implements Auditable
 
     protected $fillable = ['name', 'phone', 'email', 'remarks', 'created_by', 'updated_by'];
     public static $queryable = ['name', 'phone', 'email'];
+
+    public function packages() {
+        return $this->belongsToMany(Package::class, 'customer_package', 'customer_id', 'package_id'); 
+    }
 }

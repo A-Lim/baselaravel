@@ -14,4 +14,8 @@ interface ICustomerRepository {
     public function find($id);
 
     public function delete(Customer $customer);
+
+    public function packages(Customer $customer, $data, $paginate = false);
+
+    public function purchasePackage(Customer $customer, $data);
 }

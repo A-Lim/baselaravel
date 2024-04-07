@@ -26,6 +26,13 @@ class PackageController extends ApiController
         return $this->responseWithData(200, $packages);
     }
 
+    public function listAll(Request $request) {
+        $this->authorize('viewAny', Package::class);
+
+        $packages = $this->packageRepository->list([], false);
+        return $this->responseWithData(200, $packages);
+    }
+
     public function details(Package $package) {
         $this->authorize('view', $package);
         return $this->responseWithData(200, $package);
