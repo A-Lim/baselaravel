@@ -133,7 +133,7 @@ class CustomerRepository implements ICustomerRepository {
     }
 
     public function bulkPurchasePackage(Customer $customer, $data) {
-        Db::beginTransaction();
+        DB::beginTransaction();
             $payments = [];
             foreach ($data as $row) {
                 $row['customer_id'] = $customer->id;
@@ -160,6 +160,6 @@ class CustomerRepository implements ICustomerRepository {
                 $transaction->packages()
                     ->sync($payments);
             }
-        Db::commit();
+        DB::commit();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\v1\Transaction;
 
-use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Transaction\CreateRequest;
