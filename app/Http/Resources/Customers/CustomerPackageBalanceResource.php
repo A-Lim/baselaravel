@@ -14,15 +14,9 @@ class CustomerPackageResource extends JsonResource
      */
     public function toArray($request) {
         return [
-            'id' => $this->id,
-            'customer_id' => $this->customer_id,
-            'package_id' => $this->package_id,
+            'customerpackage_id' => $this->customerpackage_id,
             'name' => $this->name,
-            'price' => $this->price,
-            'count' => $this->count,
-            'remarks' => $this->remarks,
-            'status' => $this->status,
-            'purchased_at' => $this->purchased_at,
+            'balance' => (float) $this->balance,
         ];
     }
 }

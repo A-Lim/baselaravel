@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->integer('count');
             $table->decimal('price');
-            $table->date('purchased_date');
+            $table->datetime('purchased_at');
             $table->text('remarks')->nullable();
+            $table->string('status');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('package_id');
             $table->unsignedBigInteger('created_by');

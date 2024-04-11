@@ -62,6 +62,29 @@ class CustomerRepository implements ICustomerRepository {
         $customer->delete();
     }
 
+    public function updatePackage(CustomerPackage $customerPackage, $data) {
+        $data['updated_by'] = auth()->id();
+        $customerPackage->fill($data);
+        $customerPackage->save();
+
+        return $customerPackage;
+    }
+
+    public function deletePackage(CustomerPackage $customerPackage) {
+        DB::beginTransaction();
+            $transaction = Transaction::with('packages')
+                ->whereHas('packages', function ($query) use ($customerPackage) {
+                    $query->where('customerpackage_id', $customerPackage->id);
+                })->first();
+            
+            $customerPackage->delete();
+
+            if (count($transaction->packages) - 1 == 0) {
+                $transaction->delete();
+            }
+        DB::commit();
+    }
+
     public function packages(Customer $customer, $data, $paginate = false) {
         $limit = isset($data['limit']) ? $data['limit'] : 10;
 
@@ -69,11 +92,31 @@ class CustomerRepository implements ICustomerRepository {
             ->join('packages', 'packages.id', '=', 'customer_package.package_id')
             ->select('customer_package.*', 'packages.name')
             ->where('customer_package.customer_id', $customer->id)
-            ->orderBy('count', 'desc')
-            ->orderBy('purchased_date', 'desc');
+            ->orderByRaw('FIELD(status, \'active\', \'completed\', \'\') asc')
+            ->orderBy('customer_package.purchased_at', 'desc');
 
         if ($paginate)
             return $query->paginate($limit);
+
+        return $query->get();
+    }
+
+    public function packagesWithBalance(Customer $customer, $data) {
+        $query = CustomerPackage::select('customer_package.id as customerpackage_id', 'packages.name', 
+                DB::raw('(customer_package.price - IFNULL(SUM(customerpackage_transaction.amount), 0)) as balance'))
+            ->leftjoin('customerpackage_transaction', 'customerpackage_transaction.customerpackage_id', '=', 'customer_package.id')
+            ->join('packages', 'packages.id', '=', 'customer_package.package_id')
+            ->where('customer_package.customer_id', $customer->id)
+            ->groupBy('customer_package.id')
+            ->orderBy('customer_package.purchased_at', 'desc');
+
+        if (isset($data['has_balance'])) {
+            $condition = intval($data['has_balance']) == 1
+                ? 'balance > 0'
+                : 'balance = 0';
+
+            $query->havingRaw($condition);
+        }
 
         return $query->get();
     }
@@ -83,7 +126,8 @@ class CustomerRepository implements ICustomerRepository {
             'count' => $data['count'],
             'price' => $data['price'],
             'remarks' => @$data['remarks'],
-            'purchased_date' => $data['purchased_date'] ?? Carbon::now(),
+            'status' => CustomerPackage::STATUS_ACTIVE,
+            'purchased_at' => $data['purchased_at'] ?? Carbon::now(),
             'created_by' => auth()->id(),
         ]);
     }
@@ -94,7 +138,8 @@ class CustomerRepository implements ICustomerRepository {
             foreach ($data as $row) {
                 $row['customer_id'] = $customer->id;
                 $row['created_by'] = auth()->id();
-                $row['purchased_date'] = Carbon::now();
+                $row['purchased_at'] = Carbon::now();
+                $row['status'] = CustomerPackage::STATUS_ACTIVE;
 
                 $customerPackage = CustomerPackage::create($row);
                 if (@$row['amount_paid']) {

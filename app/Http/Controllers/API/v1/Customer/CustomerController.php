@@ -65,9 +65,16 @@ class CustomerController extends ApiController
 
     public function packages(Request $request, Customer $customer) {
         $this->authorize('view', $customer);
-        $customers = $this->customerRepository->packages($customer, $request->all(), true);
-        $collection = new CustomerPackageCollection($customers);
+        $customerPackages = $this->customerRepository->packages($customer, $request->all(), true);
+        $collection = new CustomerPackageCollection($customerPackages);
         return $this->responseWithData(200, $collection);
+    }
+
+    public function packagesWithBalance(Request $request, Customer $customer) {
+        $this->authorize('view', $customer);
+        $packages = $this->customerRepository->packagesWithBalance($customer, $request->all());
+        // $collection = new CustomerPackageCollection($customers);
+        return $this->responseWithData(200, $packages);
     }
 
     public function purchasePackage(PurchaseRequest $request, Customer $customer) {

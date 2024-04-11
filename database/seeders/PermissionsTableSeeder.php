@@ -24,6 +24,7 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'announcements', 'name' => 'Announcements', 'description' => 'Announcements module', 'is_active' => '1'],
             ['code' => 'customers', 'name' => 'Customers', 'description' => 'Customers module', 'is_active' => '1'],
             ['code' => 'packages', 'name' => 'Packages', 'description' => 'Packages module', 'is_active' => '1'],
+            ['code' => 'transactions', 'name' => 'Transactions', 'description' => 'Transactions module', 'is_active' => '1'],
         ];
 
         $permissions = [
@@ -64,6 +65,12 @@ class PermissionsTableSeeder extends Seeder {
             ['permission_module_id' => 7, 'code' => 'packages.create', 'name' => 'Create Packages', 'description' => ''],
             ['permission_module_id' => 7, 'code' => 'packages.update', 'name' => 'Update Packages', 'description' => ''],
             ['permission_module_id' => 7, 'code' => 'packages.delete', 'name' => 'Delete Packages', 'description' => ''],
+            // transaction
+            ['permission_module_id' => 8, 'code' => 'transactions.view', 'name' => 'View Transaction', 'description' => ''],
+            ['permission_module_id' => 8, 'code' => 'transaction.viewAny', 'name' => 'View Any Transactions', 'description' => ''],
+            ['permission_module_id' => 8, 'code' => 'transaction.create', 'name' => 'Create Transactions', 'description' => ''],
+            ['permission_module_id' => 8, 'code' => 'transaction.update', 'name' => 'Update Transactions', 'description' => ''],
+            ['permission_module_id' => 8, 'code' => 'transaction.delete', 'name' => 'Delete Transactions', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);

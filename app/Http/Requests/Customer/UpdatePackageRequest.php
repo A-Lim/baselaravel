@@ -4,7 +4,7 @@ namespace App\Http\Requests\Customer;
 
 use App\Http\Requests\CustomFormRequest;
 
-class PurchaseRequest extends CustomFormRequest {
+class UpdatePackageRequest extends CustomFormRequest {
 
     public function __construct() {
         parent::__construct();
@@ -16,11 +16,9 @@ class PurchaseRequest extends CustomFormRequest {
 
     public function rules() {
         return [
-            'package_id' => 'required|exists:packages,id',
             'count' => 'required|integer',
             'price' => 'required|numeric',
-            'purchased_at' => 'nullable',
-            'remarks' => 'nullable|string'
+            'remarks' => 'nullable|string',
         ];
     }
 }

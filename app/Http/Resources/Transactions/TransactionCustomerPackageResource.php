@@ -13,11 +13,10 @@ class TransactionCustomerPackageResource extends JsonResource
      * @return array
      */
     public function toArray($request) {
-        // dd($this);
         return [
-            'id' => $this->id,
+            'customerpackage_id' => $this->id,
             'name' => $this->name,
-            'amount_paid' => (float) $this->pivot->amount,
+            'amount' => (float) $this->pivot->amount,
         ];
     }
 }
