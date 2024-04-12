@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Transaction;
+namespace App\Http\Requests\Appointment;
 
-use App\Http\Requests\CustomFormRequest;
 use App\Models\CustomerPackage;
+use App\Http\Requests\CustomFormRequest;
 
-class UpdateRequest extends CustomFormRequest {
+class CreateRequest extends CustomFormRequest {
 
     public function __construct() {
         parent::__construct();
@@ -17,23 +17,20 @@ class UpdateRequest extends CustomFormRequest {
 
     public function rules() {
         return [
+            'customer_id' => 'required|exists:customers,id',
             'remarks' => 'nullable|string',
-            'customerpackages' => 'required|array',
-            'customerpackages.*.id' => 'integer',
-            'customerpackages.*.amount' => 'numeric',
-            'created_at' => 'nullable|required', //|date_format:Y-m-d\TH:i:s.u\Z'
+            'customerpackage_ids' => 'required|array',
+            'customerpackage_ids.*' => 'integer',
+            'created_at' => 'nullable', //|date_format:Y-m-d\TH:i:s.u\Z'
         ];
     }
 
     public function withValidator($validator) {
         $validator->after(function ($validator) {
             $input = $this->input();
-            $ids = [];
-            foreach ($input['customerpackages'] as $customerPackage) {
-                array_push($ids, $customerPackage['id']);
-            }
-            
-            $count = CustomerPackage::where('customer_id', $this->transaction->customer_id)
+            $ids = $input['customerpackage_ids'];
+
+            $count = CustomerPackage::where('customer_id', $input['customer_id'])
                 ->whereIn('id', $ids)
                 ->count();
             

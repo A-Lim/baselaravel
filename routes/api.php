@@ -124,11 +124,17 @@ Route::prefix('v1')->group(function () {
 
         /**** Packages ****/
         Route::namespace('API\v1\Transaction')->group(function () {
-            // Route::get('transactions', 'TransactionController@list');
-            // Route::get('transactions/{transaction}', 'TransactionController@details');
             Route::post('transactions', 'TransactionController@create');
             Route::patch('transactions/{transaction}', 'TransactionController@update');
             Route::delete('transactions/{transaction}', 'TransactionController@delete');
+        });
+
+        /**** Appointments ****/
+        Route::namespace('API\v1\Appointment')->group(function () {
+            Route::get('appointments', 'AppointmentController@list');
+            Route::post('appointments', 'AppointmentController@create');
+            Route::patch('appointments/{transaction}', 'AppointmentController@update');
+            Route::delete('appointments/{transaction}', 'AppointmentController@delete');
         });
     });
 });

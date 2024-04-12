@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Transaction;
+namespace App\Http\Requests\Appointment;
 
 use App\Http\Requests\CustomFormRequest;
 use App\Models\CustomerPackage;
@@ -17,10 +17,10 @@ class UpdateRequest extends CustomFormRequest {
 
     public function rules() {
         return [
+            'customer_id' => 'required|exists:customers,id',
             'remarks' => 'nullable|string',
-            'customerpackages' => 'required|array',
-            'customerpackages.*.id' => 'integer',
-            'customerpackages.*.amount' => 'numeric',
+            'customerpackage_ids' => 'required|array',
+            'customerpackage_ids.*' => 'integer',
             'created_at' => 'nullable|required', //|date_format:Y-m-d\TH:i:s.u\Z'
         ];
     }

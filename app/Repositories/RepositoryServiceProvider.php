@@ -18,5 +18,6 @@ class RepositoryServiceProvider extends ServiceProvider {
         $this->app->bind(\App\Repositories\Customer\ICustomerRepository::class, \App\Repositories\Customer\CustomerRepository::class);
         $this->app->bind(\App\Repositories\Package\IPackageRepository::class, \App\Repositories\Package\PackageRepository::class);
         $this->app->bind(\App\Repositories\Transaction\ITransactionRepository::class, \App\Repositories\Transaction\TransactionRepository::class);
+        $this->app->bind(\App\Repositories\Appointment\IAppointmentRepository::class, \App\Repositories\Appointment\AppointmentRepository::class);
     }
 }

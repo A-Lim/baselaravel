@@ -25,6 +25,7 @@ class PermissionsTableSeeder extends Seeder {
             ['code' => 'customers', 'name' => 'Customers', 'description' => 'Customers module', 'is_active' => '1'],
             ['code' => 'packages', 'name' => 'Packages', 'description' => 'Packages module', 'is_active' => '1'],
             ['code' => 'transactions', 'name' => 'Transactions', 'description' => 'Transactions module', 'is_active' => '1'],
+            ['code' => 'appointments', 'name' => 'Appointments', 'description' => 'Appointments module', 'is_active' => '1'],
         ];
 
         $permissions = [
@@ -71,6 +72,12 @@ class PermissionsTableSeeder extends Seeder {
             ['permission_module_id' => 8, 'code' => 'transaction.create', 'name' => 'Create Transactions', 'description' => ''],
             ['permission_module_id' => 8, 'code' => 'transaction.update', 'name' => 'Update Transactions', 'description' => ''],
             ['permission_module_id' => 8, 'code' => 'transaction.delete', 'name' => 'Delete Transactions', 'description' => ''],
+            // appointment
+            ['permission_module_id' => 9, 'code' => 'appointments.view', 'name' => 'View Appointments', 'description' => ''],
+            ['permission_module_id' => 9, 'code' => 'appointment.viewAny', 'name' => 'View Any Appointments', 'description' => ''],
+            ['permission_module_id' => 9, 'code' => 'appointment.create', 'name' => 'Create Appointments', 'description' => ''],
+            ['permission_module_id' => 9, 'code' => 'appointment.update', 'name' => 'Update Appointments', 'description' => ''],
+            ['permission_module_id' => 9, 'code' => 'appointment.delete', 'name' => 'Delete Appointments', 'description' => ''],
         ];
 
         PermissionModule::insert($permission_modules);
